@@ -1,10 +1,11 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
-import Home from "../page/Home";
+import Table from "../component/Table.component.js";
+
 const appRouter = createBrowserRouter([
     {
         path: '/home',
-        element: <Home />
+        element: <Table/>
     }
 ])
 export default appRouter

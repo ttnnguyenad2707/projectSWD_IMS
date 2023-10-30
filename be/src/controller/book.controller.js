@@ -1,4 +1,4 @@
-const Book = require("../models/book");
+import { create } from "../models/book";
 
 const book = {
     getAllBook: async (req, res) => {
@@ -8,7 +8,7 @@ const book = {
         try {
 
 
-            const result =await Book.create({
+            const result =await create({
                 title: "Clean Code",
                 author: "Robert Cecil Martin",
                 release_date: "2021-12-14",
@@ -21,4 +21,4 @@ const book = {
     }
 }
 
-module.exports = book
+export default book

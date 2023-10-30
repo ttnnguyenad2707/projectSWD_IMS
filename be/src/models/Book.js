@@ -1,8 +1,8 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../database/mysql");
+import { DataTypes } from "sequelize";
+import { define } from "../database/mysql";
 
 
-const Book = sequelize.define("books", {
+const Book = define("books", {
     title: {
       type: DataTypes.STRING,
       allowNull: false
@@ -19,4 +19,4 @@ const Book = sequelize.define("books", {
     }
   });
 
-  module.exports = Book
+  export default Book

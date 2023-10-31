@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
-import { define } from "../database/mysql";
+import sequelize from "../database/mysql.js";
 
 
-const Book = define("books", {
+const Book = sequelize.define("books", {
     title: {
       type: DataTypes.STRING,
       allowNull: false

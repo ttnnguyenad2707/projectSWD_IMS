@@ -1,4 +1,4 @@
-import { create } from "../models/book";
+import Book from "../models/book.js";
 
 const book = {
     getAllBook: async (req, res) => {
@@ -8,7 +8,7 @@ const book = {
         try {
 
 
-            const result =await create({
+            const result =await Book.create({
                 title: "Clean Code",
                 author: "Robert Cecil Martin",
                 release_date: "2021-12-14",

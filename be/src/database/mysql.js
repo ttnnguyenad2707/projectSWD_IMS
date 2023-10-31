@@ -1,16 +1,16 @@
 import { Sequelize } from "sequelize";
 
-const { DB_NAME, DB_USERNAME, DB_PASSWORD,DB_HOST,DB_DIALECT } = process.env;
+import dotenv from "dotenv";
 
-
+dotenv.config();
 
 const sequelize = new Sequelize(
-    DB_NAME,
-    DB_USERNAME,
-    DB_PASSWORD,
+    process.env.DB_NAME,
+    process.env.DB_USERNAME,
+    process.env.DB_PASSWORD,
     {
-        host: DB_HOST,
-        dialect: DB_DIALECT
+        host: process.env.DB_HOST,
+        dialect: process.env.DB_DIALECT,
     }
 );
 

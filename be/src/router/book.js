@@ -1,7 +1,7 @@
 import router from 'express';
-import book from '../controller/book.controller';
+import book from '../controller/book.controller.js';
 
-router.post('/',book.createBook);
-router.get('/',book.getAllBook);
+router.Router().post('/',book.createBook);
+router.Router().get('/',book.getAllBook);
 
 export default router

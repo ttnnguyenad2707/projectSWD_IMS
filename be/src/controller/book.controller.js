@@ -1,4 +1,4 @@
-const Book = require("../models/book");
+import Book from "../models/book.js";
 
 const book = {
     getAllBook: async (req, res) => {
@@ -21,4 +21,4 @@ const book = {
     }
 }
 
-module.exports = book
+export default book

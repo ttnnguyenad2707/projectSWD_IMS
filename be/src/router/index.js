@@ -1,8 +1,8 @@
-import router from "express";
-import bookRouter from "./book.js"
+import express from "express";
+import router from "./book.js"
+const indexRouter = express.Router();
+
+indexRouter.use('/book',router);
 
 
-router.Router().use('/book',bookRouter);
-
-
-export default router
+export default indexRouter

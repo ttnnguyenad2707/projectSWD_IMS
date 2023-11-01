@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate, Outlet, NavLink, useParams, redirect } from 'react-router-dom';
+import { register } from '../../services/auth.service';
 
 const Register = () => {
     const initialValues = {
@@ -35,8 +36,13 @@ const Register = () => {
         password: Yup.string().required('password is required')
     });
 
-    const handleSubmit = (values) => {
+    const handleSubmit = async(values) => {
         console.log(values);
+        try {
+            const  res = await register()
+        } catch (error) {
+            
+        }
         // Perform registration logic here
     };
 

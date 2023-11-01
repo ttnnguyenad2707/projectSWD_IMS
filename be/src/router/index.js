@@ -4,8 +4,9 @@ import classRouter from "./class.js";
 
 const indexRouter = express.Router();
 
-indexRouter.use("/book", router);
 indexRouter.use("/account", accountRouter);
 indexRouter.use("/account", accountRouter);
 indexRouter.use("/class", classRouter);
 export default indexRouter;
+
+//dồn router vào 1 file code, router cụ thể thì cho vào controller

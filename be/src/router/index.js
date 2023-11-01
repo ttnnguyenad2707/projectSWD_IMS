@@ -1,5 +1,4 @@
 import express from "express";
-import router from "./book.js";
 import accountRouter from "./account.js";
 import classRouter from "./class.js";
 

@@ -9,7 +9,7 @@ const REFRESH_KEY = process.env.REFRESH_KEY
 const accountService = {
     register: async (req, res) => {
 
-        const { email, password } = req.body;
+        const { fullname, phone, email, password } = req.body;
         try {
             const existUser = await Account.findOne({ where: { email } });
             if (existUser) {
@@ -25,15 +25,21 @@ const accountService = {
                     password: hashedPassword,
                 }
                 await Account.create({
+                    Fullname: fullname,
+                    Phone: phone,
                     Email: email,
                     Password: hashedPassword
+                }).then(data => {
+                    return res.status(200).json({
+                        message: "Register Successfully",
+                        data: {
+                            Fullname: data.Fullname,
+                            Phone: data.Phone,
+                            Email: data.Email,
+                        }
+                    })
                 })
-                return res.status(200).json({
-                    message: "Register Successfully",
-                    data: {
-                        email: email,
-                    }
-                })
+
             }
         } catch (error) {
             console.log("Error" + error.toString());
@@ -63,7 +69,7 @@ const accountService = {
                 });
             }
             const accessToken = await genAccessToken(user);
-            
+
             res.cookie("accessToken", accessToken, {
                 httpOnly: false,
                 secure: false,
@@ -83,12 +89,12 @@ const accountService = {
             });
         }
     },
-    logout: async (req, res) =>  {
+    logout: async (req, res) => {
         res.clearCookie("accessToken");
         res.status(200).json("Logout successful");
     }
-    
-    
+
+
 }
 
 export default accountService

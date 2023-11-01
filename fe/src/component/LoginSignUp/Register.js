@@ -8,14 +8,31 @@ import { useNavigate, Outlet, NavLink, useParams, redirect } from 'react-router-
 const Register = () => {
     const initialValues = {
         fullname: '',
+        phone: '',
         email: '',
         password: ''
     };
 
+    // const validationSchema = Yup.object({
+    //     fullname: Yup.string().required('fullname is required'),
+    //     email: Yup.string().email('Invalid email address').required('email is required'),
+    //     password: Yup.string().required('password is required')
+    // });
     const validationSchema = Yup.object({
-        fullname: Yup.string().required('Fullname is required'),
-        email: Yup.string().email('Invalid email address').required('Email is required'),
-        password: Yup.string().required('Password is required')
+        fullname: Yup.string().required('fullname is required'),
+        email: Yup.string()
+            .email('Invalid email address')
+            .test('fpt-email', 'Only @fpt.edu.vn email addresses are allowed', function (value) {
+                if (value) {
+                    return value.endsWith('@fpt.edu.vn');
+                }
+                return true;
+            })
+            .required('email is required'),
+        phone: Yup.string()
+            .matches(/^\d{10}$/, 'Phone number must be 10 digits')
+            .required('Phone number is required'),
+        password: Yup.string().required('password is required')
     });
 
     const handleSubmit = (values) => {
@@ -35,17 +52,22 @@ const Register = () => {
                     >
                         <Form>
                             <div className="mb-3">
-                                <label htmlFor="fullname" className="form-label">Fullname</label>
+                                <label htmlFor="fullname" className="form-label">fullname</label>
                                 <Field type="text" className="form-control" id="fullname" name="fullname" />
                                 <ErrorMessage name="fullname" component="div" className="text-danger" />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="email" className="form-label">Email</label>
+                                <label htmlFor="phone" className="form-label">phone</label>
+                                <Field type="text" className="form-control" id="phone" name="phone" />
+                                <ErrorMessage name="phone" component="div" className="text-danger" />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="email" className="form-label">email</label>
                                 <Field type="email" className="form-control" id="email" name="email" />
                                 <ErrorMessage name="email" component="div" className="text-danger" />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="password" className="form-label">Password</label>
+                                <label htmlFor="password" className="form-label">password</label>
                                 <Field type="password" className="form-control" id="password" name="password" />
                                 <ErrorMessage name="password" component="div" className="text-danger" />
                             </div>

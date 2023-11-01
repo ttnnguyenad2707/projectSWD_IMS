@@ -2,32 +2,27 @@ import axios from 'axios';
 import { BASE_URL } from '../dataConfig';
 
 
-export const register = async (
+export const register = async (data) => {
+    return await axios.post(
+        `${BASE_URL}/account/register`, data
+    )
+}
+// console.log("${BASE_URL}/account/register",BASE_URL);
+
+
+export const login = async (
     data
 ) => {
     return await axios.post(
-        `${BASE_URL}/register`,
+        `${BASE_URL}/account/login`,
         data, {
-        withCredentials: true
-    }
+                     withCredentials: true,}
+            
     )
 }
-
-
-// export const login = async (
-//     email,
-//     password
-// ) => {
-//     return await axios.post(
-//         `${URL_SERVER}/auth/login`,
-//         {
-//             email: email,
-//             password: password
-//         }, {
-//         withCredentials: true
-//     }
-//     )
-// }
+export const logout = async () => {
+    return await axios.post(`${BASE_URL}/account/logout`)
+}
 
 // export const checkUser = async (token) => {
 //     return await axios.post(`${URL_SERVER}/auth/check-user`, null, {

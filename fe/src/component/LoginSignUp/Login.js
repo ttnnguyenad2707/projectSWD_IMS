@@ -5,22 +5,51 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate, Outlet, NavLink, useParams, redirect } from 'react-router-dom';
+import { login } from '../../services/auth.service';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Login = () => {
     const initialValues = {
-        fullname: '',
         email: '',
         password: ''
     };
+    const nav = useNavigate();
 
+    // const validationSchema = Yup.object({
+    //     fullname: Yup.string().required('Fullname is required'),
+    //     email: Yup.string().email('Invalid email address').required('Email is required'),
+    //     password: Yup.string().required('Password is required')
+    // });
     const validationSchema = Yup.object({
-        fullname: Yup.string().required('Fullname is required'),
-        email: Yup.string().email('Invalid email address').required('Email is required'),
-        password: Yup.string().required('Password is required')
+        email: Yup.string()
+            .email('Invalid email address')
+            .test('fpt-email', 'Only @fpt.edu.vn email addresses are allowed', function (value) {
+                if (value) {
+                    return value.endsWith('@fpt.edu.vn');
+                }
+                return true;
+            })
+            .required('email is required'),
+
+        password: Yup.string()
+            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/, 'Password must contain at least one lowercase letter, one uppercase letter, and one digit')
+            .required('password is required')
     });
 
-    const handleSubmit = (values) => {
-        console.log(values);
+
+    const handleSubmit = async (values) => {
+        try {
+            console.log(values);
+            const res = await login(values)
+            toast.success(res.data.message)
+            localStorage.setItem('user', JSON.stringify(res.data.data));
+
+            nav('/')
+        } catch (error) {
+            toast(error.response.data.message)
+        //  console.log(error);   
+        }
+       
         // Perform registration logic here
     };
 

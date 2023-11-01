@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate, Outlet, NavLink, useParams, redirect } from 'react-router-dom';
 import { register } from '../../services/auth.service';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Register = () => {
     const initialValues = {
@@ -14,11 +15,8 @@ const Register = () => {
         password: ''
     };
 
-    // const validationSchema = Yup.object({
-    //     fullname: Yup.string().required('fullname is required'),
-    //     email: Yup.string().email('Invalid email address').required('email is required'),
-    //     password: Yup.string().required('password is required')
-    // });
+    const nav = useNavigate();
+ 
     const validationSchema = Yup.object({
         fullname: Yup.string().required('fullname is required'),
         email: Yup.string()
@@ -33,15 +31,23 @@ const Register = () => {
         phone: Yup.string()
             .matches(/^\d{10}$/, 'Phone number must be 10 digits')
             .required('Phone number is required'),
-        password: Yup.string().required('password is required')
+            password: Yup.string()
+            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/, 'Password must contain at least one lowercase letter, one uppercase letter, and one digit')
+            .required('password is required')
     });
 
-    const handleSubmit = async(values) => {
+    const handleSubmit = async (values) => {
         console.log(values);
+        const data = {
+            ...values,
+        }
         try {
-            const  res = await register()
+            const res = await register(data)
+            console.log("res", res)
+            toast.success(res.data.message)
+            nav("/login")
         } catch (error) {
-            
+            console.log(error);
         }
         // Perform registration logic here
     };

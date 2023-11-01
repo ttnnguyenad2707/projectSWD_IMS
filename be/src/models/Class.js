@@ -1,5 +1,5 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../database/mysql");
+import { DataTypes } from "sequelize";
+import sequelize from "../database/mysql.js";
 
 const Class = sequelize.define("class", {
   class_name: {
@@ -18,9 +18,9 @@ const Class = sequelize.define("class", {
   teacher_id: {
     type: DataTypes.INTEGER,
   },
-  status: {
+  status_class: {
     type: DataTypes.INTEGER,
   },
 });
 
-module.exports = Class;
+export default Class;

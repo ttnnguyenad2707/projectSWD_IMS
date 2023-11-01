@@ -1,19 +1,12 @@
-const Class = require("../models/class");
-
-const MyClass = {
-  getAllClass: async (req, res) => {
-    res.send("All class");
+import classService from "../service/class.service.js";
+import asyncHandler from "../utils/asyncHandler.js";
+const classCtrl = {
+  getAllClass: (req, res) => {
+    classService.listClass(req, res);
   },
-  createClass: async (req, res) => {
-    try {
-      const result = await Class.create({
-        class_name: "SWD",
-      });
-      return res.status(200).json(result);
-    } catch (error) {
-      throw new Error(error);
-    }
-  },
+  createClass: asyncHandler((req, res) => {
+    classService.createClass(req, res);
+  }),
 };
 
-module.exports = MyClass;
+export default classCtrl;

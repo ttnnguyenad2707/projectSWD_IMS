@@ -11,7 +11,9 @@ const app = express()
 const port = 5000
 app.use(json());
 app.use(cookieParser())
-app.use(cors({ origin: 'http://localhost:3000' }))
+// app.use(cors({ origin: 'http://localhost:3000' }))
+app.use(cors({ origin: true, credentials: true }));
+
 app.use('/', router)
 
 
@@ -22,7 +24,7 @@ app.listen(port, async () => {
     console.error('Error in connect database', error);
   });
 
-
+  
   sequelize.sync()
 
   console.log(`Example app listening on port ${port}`)

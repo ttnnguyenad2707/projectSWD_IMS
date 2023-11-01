@@ -1,7 +1,8 @@
-const router = require("express").Router();
-const MyClass = require("../controller/classController");
+import classCtrl from "../controller/classController.js";
+import express from "express";
 
-router.post("/", MyClass.createClass);
-router.get("/", MyClass.getAllClass);
+const classRouter = express.Router();
+classRouter.post("/", classCtrl.createClass);
+classRouter.get("/list", classCtrl.getAllClass);
 
-module.exports = router;
+export default classRouter;

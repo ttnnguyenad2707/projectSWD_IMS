@@ -3,6 +3,14 @@ import Joi from 'joi'
 const accountValidator = {
 
     validateRegister: Joi.object({
+        fullname: Joi.string()
+            .not(null)
+            .only()
+            .required(),
+        phone: Joi.string()
+            .not(null)
+            .only()
+            .required(),
         email: Joi.string()
             .email()
             .not(null)
@@ -13,7 +21,7 @@ const accountValidator = {
             .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$'))
             .required(),
     }),
-    
+
 
 
 }

@@ -32,6 +32,11 @@ const accountController = {
     logout: asyncHandler(async (req,res) => {
         await accountService.logout(req,res);
     }),
+    role: asyncHandler(async (req,res) => {
+        const {roleName} = req.body;
+        await Role.create({roleName});
+        return res.send("add oke")
+    }),
 }
 
 export default accountController

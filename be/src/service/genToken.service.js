@@ -10,3 +10,4 @@ const genAccessToken= (user) =>  {
     }, ACCESS_KEY, { expiresIn: "2h" });
 }
 export default genAccessToken
+//cho vào file loginService

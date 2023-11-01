@@ -1,12 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../database/mysql.js";
 
-const Subject = sequelize.define('Subject',{
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-      },
+const Subject = sequelize.define('subjects',{
     name: {
         type: DataTypes.STRING,
     },
@@ -16,6 +11,7 @@ const Subject = sequelize.define('Subject',{
     },
     status: {
         type: DataTypes.BOOLEAN,
+        defaultValue: true
     }
 })
 

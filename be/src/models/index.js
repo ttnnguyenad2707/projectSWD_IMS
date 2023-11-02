@@ -11,7 +11,6 @@ import SubjectClass from "./Subjectclass.js";
 import Issue from "./Issue.js";
 // 1 - nhiều account - role
 Role.hasMany(Account, { as: "account", foreignKey: "roleId",sourceKey: "id" });
-
 Account.belongsTo(Role, { as: "role", foreignKey: "roleId",targetKey: "id"  });
 
 //nhieu nhieu project - account
@@ -36,5 +35,9 @@ Account.belongsToMany(Group,{through:GroupMember,foreignKey:"accountId",otherKey
 
 Class.belongsToMany(Subject, {through: SubjectClass});
 Subject.belongsToMany(Class, {through: SubjectClass})
+
+//
+Project.hasMany(Issue,{as: 'issue',foreignKey: "projectId",sourceKey: "id"});
+Issue.belongsTo(Project,{as: 'project',foreignKey:"projectId",sourceKey: "id" });
 
 export { Account, Role, Class, Project,Group,Issue };

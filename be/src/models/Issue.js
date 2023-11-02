@@ -28,16 +28,7 @@ const Issue = sequelize.define("issue", {
   complexity: {
     type: DataTypes.STRING,
   },
-  create_at: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  delete_at: {
-    type: DataTypes.DATE, 
-  },
-  end_date: {
-    type: DataTypes.DATE,
-  }
+  
 }, {
   timestamps: true,
   paranoid: true,

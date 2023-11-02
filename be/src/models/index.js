@@ -6,6 +6,10 @@ import ProjectMember from "./ProjectMember.js";
 import Group from "./Group.js";
 import ClassAccount from "./ClassMember.js";
 import GroupMember from "./GroupMember.js";
+import Subject from "./Subject.js";
+import SubjectClass from "./Subjectclass.js";
+
+import Issue from "./Issue.js";
 // 1 - nhiều account - role
 Role.hasMany(Account, { as: "account", foreignKey: "roleId",sourceKey: "id" });
 
@@ -31,7 +35,7 @@ Group.belongsTo(Class,{as: 'class',foreignKey:"classId",sourceKey: "id" });
 Group.belongsToMany(Account,{through:GroupMember,foreignKey:"groupId",otherKey: "accountId"})
 Account.belongsToMany(Group,{through:GroupMember,foreignKey:"accountId",otherKey:"groupId"})
 
+Class.belongsToMany(Subject, {through: SubjectClass});
+Subject.belongsToMany(Class, {through: SubjectClass})
 
-
-
-export { Account, Role, Class, Project,ProjectMember,Group };
+export { Account, Role, Class, Project,ProjectMember,Group,Issue };

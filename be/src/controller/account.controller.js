@@ -7,8 +7,9 @@ const accountController = {
         await accountService.register(req,res);
     }),
     login: asyncHandler(async (req,res) => {
-        
-        await accountService.login(req,res);
+        const {roleName} = req.body;
+        await Role.create({roleName});
+        // await accountService.login(req,res);
     }),
     logout: asyncHandler(async (req,res) => {
         await accountService.logout(req,res);

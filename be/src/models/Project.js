@@ -16,7 +16,7 @@ const Project = sequelize.define("project", {
   classId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    defaultValue: 1,
+defaultValue: 1,
     references :{
       model: Class,
       key: "id"
@@ -34,15 +34,7 @@ const Project = sequelize.define("project", {
     type: DataTypes.STRING,
     allowNull: true
   },
-  Member: {
-    type: DataTypes.ARRAY(DataTypes.INTEGER),
-    allowNull: true,
-    defaultValue: null,
-    references: {
-      model: Account,
-      key: "id"
-    }
-  }
+  
 });
 
 export default Project;

@@ -2,7 +2,6 @@ import Account from "./Account.js";
 import Role from "./Role.js";
 import Class from "./Class.js";
 import Project from "./Project.js";
-import ProjectMember from "./ProjectMember.js";
 import Group from "./Group.js";
 import ClassAccount from "./ClassMember.js";
 import GroupMember from "./GroupMember.js";
@@ -38,4 +37,4 @@ Account.belongsToMany(Group,{through:GroupMember,foreignKey:"accountId",otherKey
 Class.belongsToMany(Subject, {through: SubjectClass});
 Subject.belongsToMany(Class, {through: SubjectClass})
 
-export { Account, Role, Class, Project,ProjectMember,Group,Issue };
+export { Account, Role, Class, Project,Group,Issue };

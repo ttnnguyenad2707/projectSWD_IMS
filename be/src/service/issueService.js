@@ -1,4 +1,4 @@
-import { Issue } from "../models/Index.js";
+import { Issue } from "../models/index.js";
 
 const issueService = {
   createIssue: async (req, res) => {

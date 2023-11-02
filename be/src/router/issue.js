@@ -3,6 +3,6 @@ import express from "express";
 
 const issueRouter = express.Router();
 issueRouter.post("/", issueController.createIssue);
-issueRouter.get("/issues", issueController.getAllIssue);
+issueRouter.get("/", issueController.getAllIssue);
 
 export default issueRouter;

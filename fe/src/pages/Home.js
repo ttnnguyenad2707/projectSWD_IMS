@@ -10,8 +10,8 @@ const Home = () => {
             Home
             <p>{user?.email}
             </p>
-
-            <button className='btn btn-primary'onClick={()=>{nav("/projectList")}}>go to project</button>
+            {user?.Role ==="teacher" ? <button className='btn btn-primary' onClick={() => { nav("/projectList") }}>go to project</button> : ""
+            }
         </div>
     );
 };

@@ -1,100 +1,139 @@
 
-import React from 'react';
+
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Input, Select, DatePicker, Button } from 'antd';
 import moment from 'moment';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
+import { createProject, getDetailProject, getListClass, updateProject } from '../../services/product.service';
+import Cookies from 'js-cookie';
+import { ToastContainer, toast } from 'react-toastify';
 
-const { Option } = Select;
 
-const initialValues = {
-    projectCode: '',
-    name: '',
-    description: '',
-    group: '',
-    assignTo: '',
-    dateStart: null,
-    dateEnd: null,
-};
-
-const handleSubmit = (values) => {
-    console.log('Submitted values:', values);
-    // Xử lý dữ liệu ở đây
-};
 
 const ProjectDetailAndUpdate = () => {
-    
+    const [user] = useOutletContext();
     const nav = useNavigate();
+    const { id } = useParams()
 
+    // console.log("id",id);
+    useEffect(() => {
+        getListClasss()
+        getProjectDetail()
+    }, [])
+    const token = Cookies.get('accessToken');
+    const { Option } = Select;
+    const [listclass, setListClass] = useState([])
+    const [projectDetail, setProjectDetail] = useState([])
+
+    // const [files, setFiles] = useState([]);
+
+    const getProjectDetail = async () => {
+        try {
+            const detail = await getDetailProject(token, id)
+            console.log("detail", detail);
+            setProjectDetail(detail.data.data)
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+    console.log("projectDetail", projectDetail);
+
+
+
+    console.log("listclass", listclass);
+    console.log("user", user);
+
+    const handleSubmit = async (values) => {
+        try {
+
+            console.log("values", values);
+            const data = await updateProject(values, id, token)
+            console.log("data edit", data);
+            toast.success(data.data.message)
+            nav("/projectList")
+
+
+        } catch (error) {
+            console.log(error);
+            toast(error.response.data.message)
+
+        }
+
+    };
+
+    const getListClasss = async () => {
+        try {
+            const res = await getListClass(token)
+            setListClass(res.data.data)
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+    const initialValues = {
+        ProjectCode: projectDetail?.ProjectCode,
+        ProjectName: projectDetail?.ProjectName,
+        Description: projectDetail?.Description,
+        classId: projectDetail?.classes?.id,
+
+        TeamLeader: projectDetail?.TeamLeader,
+        Status: projectDetail.Status
+
+
+    };
     return (
         <div className="container  ">
             <div className="my-5 ">
 
-                <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+                <Formik initialValues={initialValues} onSubmit={handleSubmit} enableReinitialize={true}>
                     {({ setFieldValue }) => (
                         <Form>
                             <div className="row">
                                 <div className="col-6">
                                     <div>
-                                        <label htmlFor="projectCode">Project Code:</label>
-                                        <Field type="text" name="projectCode" as={Input} />
+                                        <label htmlFor="ProjectCode">Project Code:</label>
+                                        <Field type="text" disabled={true} name="ProjectCode" as={Input} />
                                     </div>
                                     <div>
-                                        <label htmlFor="name">Name:</label>
-                                        <Field type="text" name="name" as={Input} />
+                                        <label htmlFor="name">ProjectName:</label>
+                                        <Field type="text" name="ProjectName" as={Input} />
                                     </div>
                                     <div>
-                                        <label htmlFor="description">Description:</label>
-                                        <Field type="text" name="description" as={Input} />
+                                        <label htmlFor="Description">Description:</label>
+                                        <Field type="text" name="Description" as={Input} />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="TeamLeader">TeamLeader:</label>
+                                        <Field type="text" name="TeamLeader" as={Input} />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="Status">Active:</label>
+                                        <Field type="checkbox" name="Status" />
                                     </div>
                                 </div>
                                 <div className="col-6">
                                     <div>
-                                        <label htmlFor="group">Group:</label>
+                                        <label htmlFor="classId">class:</label>
                                         <Field
-                                            name="group"
+                                            name="classId"
                                             style={{ width: '100%' }}
                                             as={Select}
-                                            onChange={(value) => setFieldValue('group', value)}
+
+                                            onChange={(value) => setFieldValue('classId', value)}
                                         >
-                                            <Option value="group1">Group 1</Option>
-                                            <Option value="group2">Group 2</Option>
-                                            <Option value="group3">Group 3</Option>
+
+                                            {listclass.map((item) => (
+                                                <Option key={item.id} value={item.id}>
+                                                    {item.class_name}
+                                                </Option>
+                                            ))}
                                         </Field>
                                     </div>
-                                    <div>
-                                        <label htmlFor="assignTo">Assign To:</label>
-                                        <Field
-                                            name="assignTo"
-                                            style={{ width: '100%' }}
-                                            as={Select}
-                                            onChange={(value) => setFieldValue('assignTo', value)}
-                                        >
-                                            <Option value="user1">User 1</Option>
-                                            <Option value="user2">User 2</Option>
-                                            <Option value="user3">User 3</Option>
-                                        </Field>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="dateStart">Date Start:</label>
-                                        <Field
-                                            name="dateStart"
-                                            as={DatePicker}
-                                            onChange={(value) =>
-                                                setFieldValue('dateStart', value ? moment(value) : null)
-                                            }
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="dateEnd">Date End:</label>
-                                        <Field
-                                            name="dateEnd"
-                                            as={DatePicker}
-                                            onChange={(value) =>
-                                                setFieldValue('dateEnd', value ? moment(value) : null)
-                                            }
-                                        />
-                                    </div>
+
+
                                 </div>
                             </div>
                             <div className="row" >

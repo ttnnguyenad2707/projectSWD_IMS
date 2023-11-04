@@ -38,7 +38,7 @@ const appRouter = createBrowserRouter([
       }
       ,
       {
-        path: "/detailProject",
+        path: "/detailProject/:id",
         element:<ProjectDetailAndUpdate/>
       },
       {

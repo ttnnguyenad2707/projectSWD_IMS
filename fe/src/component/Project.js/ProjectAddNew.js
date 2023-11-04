@@ -11,6 +11,8 @@ import { ToastContainer, toast } from 'react-toastify';
 
 const AddProjectForm = () => {
     const [user] = useOutletContext();
+    const nav = useNavigate();
+
     useEffect(() => {
         getListClasss()
     }, [])
@@ -46,6 +48,7 @@ const AddProjectForm = () => {
             const data = await createProject({ ...values, TeacherId: user.id}, token)
             console.log("create ", data);
             toast.success(data.data.message)
+            nav("/projectList")
 
         } catch (error) {
             console.log(error);
@@ -54,7 +57,6 @@ const AddProjectForm = () => {
         }
 
     };
-    const nav = useNavigate();
 
     return (
         <div className="container  ">
@@ -80,7 +82,7 @@ const AddProjectForm = () => {
                                 </div>
                                 <div className="col-6">
                                     <div>
-                                        <label htmlFor="classId">classId:</label>
+                                        <label htmlFor="classId">class:</label>
                                         <Field
                                             name="classId"
                                             style={{ width: '100%' }}

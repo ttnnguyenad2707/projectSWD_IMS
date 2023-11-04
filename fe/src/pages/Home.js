@@ -1,8 +1,9 @@
 import React from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 
 const Home = () => {
     const [user] = useOutletContext();
+    const nav = useNavigate();
 
     return (
         <div>
@@ -10,7 +11,7 @@ const Home = () => {
             <p>{user?.email}
             </p>
 
-            <button className='btn btn-primary'>go to project</button>
+            <button className='btn btn-primary'onClick={()=>{nav("/projectList")}}>go to project</button>
         </div>
     );
 };

@@ -6,6 +6,10 @@ import Login from "../component/LoginSignUp/Login.js";
 import Header from "../component/Header.js";
 import Home from "../pages/Home.js";
 import SystemSettingList from "../component/SystemSetting/SystemSettingList.js";
+import ClassList from "../component/ClassList.component.js";
+import ProjectList from "../component/Project.js/ProjectList.js";
+import ProjectAddNew from "../component/Project.js/ProjectAddNew.js";
+import ProjectDetailAndUpdate from "../component/Project.js/ProjectDetailAndUpdate.js";
 
 const appRouter = createBrowserRouter([
   {
@@ -20,6 +24,19 @@ const appRouter = createBrowserRouter([
         path: "/systemsetting",
         element: <SystemSettingList />,
       },
+      {
+        path: "/projectList",
+        element: <ProjectList />,
+      },
+      {
+        path: "/addNewProject",
+        element: <ProjectAddNew />,
+      }
+      ,
+      {
+        path: "/detailProject",
+        element:<ProjectDetailAndUpdate/>
+      }
     ],
   },
   {

@@ -1,5 +1,5 @@
 import asyncHanler from "../utils/asyncHandler.js";
-
+import projectService from '../service/project.service.js'
 
 const projectController = {
     createProject: asyncHanler(async (req,res) => {

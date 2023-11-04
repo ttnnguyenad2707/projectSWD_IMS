@@ -1,4 +1,4 @@
-
+import Project from '../models/Project.js'
 
 
 const projectService = {
@@ -24,6 +24,16 @@ const projectService = {
                     })
                 });
             }
+        } catch (error) {
+            res.status(500).json({
+                message: "Server Error" + error,
+            })
+        }
+    },
+    getProjectByParams: async (req,res) => {
+        const params = req.body;
+        try {
+
         } catch (error) {
             res.status(500).json({
                 message: "Server Error" + error,

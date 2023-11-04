@@ -16,15 +16,19 @@ const Project = sequelize.define("project", {
   classId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-defaultValue: 1,
-    references :{
+    references: {
       model: Class,
       key: "id"
     }
   },
   TeamLeader: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: true,
+    defaultValue: null,
+    references: {
+      model: Account,
+      key: "id"
+    }
   },
   Status: {
     type: DataTypes.BOOLEAN,
@@ -34,7 +38,7 @@ defaultValue: 1,
     type: DataTypes.STRING,
     allowNull: true
   },
-  
+
 });
 
 export default Project;

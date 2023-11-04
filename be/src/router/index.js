@@ -9,7 +9,7 @@ const indexRouter = express.Router();
 indexRouter.use("/account", accountRouter);
 indexRouter.use("/issue", issueRouter);
 indexRouter.use("/class", classRouter);
-indexRouter.use("project",projectRouter)
+indexRouter.use("/project",projectRouter)
 indexRouter.use("/subject",subjectRouter);
 export default indexRouter;
 

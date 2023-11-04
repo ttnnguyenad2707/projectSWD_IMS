@@ -11,8 +11,10 @@ const classService = {
       subject_id: subject_id,
       teacher_id: teacher_id,
       status_class: status,
+    }).then(data => {
+      res.status(200).json({ message: "create successful",data });
     });
-    res.status(200).json({ message: "create successful" });
+    
   },
   listClass: async (req, res) => {
     try {

@@ -4,7 +4,7 @@ import validateData from '../middleware/validateData.js';
 import projectController from '../controller/project.controller.js';
 const projectRouter = express.Router();
 
-projectRouter.post('/createProject',validateData(accountValidator.validateRegister),projectController.createProject);
+projectRouter.post('/createProject',projectController.createProject);
 
 
 export default projectRouter

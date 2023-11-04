@@ -34,7 +34,7 @@ const settingService = {
         const { settingId } = req.params
         const { name, type, status } = req.body;
         try {
-            const setting = await Setting.findOne({ wherer: { id: settingId } });
+            const setting = await Setting.findOne({ where: { id: settingId } });
             if (!setting) {
                 return res.status(200).json({ message: "Setting id not found" })
             }
@@ -51,6 +51,17 @@ const settingService = {
             })
         }
 
+    },
+    getSettingList :async(req,res) => {
+        try {
+            Setting.findAll().then(data => {
+                return res.status(200).json({message:"get successfully",data})
+            })
+        } catch (error) {
+            res.status(500).json({
+                message: "Server Error" + error,
+            })
+        }
     }
 
 

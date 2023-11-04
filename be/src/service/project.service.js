@@ -1,4 +1,5 @@
 import Account from '../models/Account.js';
+import Class from '../models/Class.js';
 import Project from '../models/Project.js'
 
 
@@ -40,8 +41,10 @@ const projectService = {
                 return res.status(200).json({ message: "Teacher is not found" });
             }
 
-            const projects = await Project.findAll({ where: { teacherId } });
-            return res.status(200).json({ message: "Get Project Successfully", data: projects });
+            const projects = await Project.findAll({ where: { teacherId },include :[{model:Class,as:"classes"},{model:Account,as:"teacher"},{model:Account,as:"leader"}] });
+            return res.status(200).json({ 
+                message: "Get Project Successfully", 
+                data: projects });
         } catch (error) {
             return res.status(500).json({ message: "Server Error " + error.message });
         }
@@ -50,7 +53,7 @@ const projectService = {
     getDetailProject: async (req, res) => {
         const { projectId } = req.params;
         try {
-            Project.findOne({ where: { id: projectId } }).then(data => {
+            Project.findOne({ where: { id: projectId },include :[{model:Class,as:"classes"},{model:Account,as:"teacher"},{model:Account,as:"leader"}] }).then(data => {
                 if (data) {
                     return res.status(200).json({ message: "Get Project Successfully", data });
                 }

@@ -16,16 +16,16 @@ Account.belongsTo(Role, { as: "role", foreignKey: "roleId",targetKey: "id"  });
 // Account.belongsToMany(Project, {through: "ProjectMember",foreignKey: "accountId",otherKey: "projectId"});
 
 // 1 nhiều : class project
-Project.belongsTo(Class, {as:"class",foreignKey: "classId",targetKey: "id"});
+Project.belongsTo(Class, {as:"classes",foreignKey: "classId",targetKey: "id"});
 Class.hasMany(Project, {as:"project",foreignKey: "classId",sourceKey: "id"});
 
 // nhiều nhiều class-account
 Class.belongsToMany(Account, { through: ClassAccount,foreignKey: "classId",otherKey: "accountId" });
 Account.belongsToMany(Class, { through: ClassAccount,foreignKey: "accountId",otherKey: "classId"  });
 
+Project.belongsTo(Account,{as:"teacher",foreignKey: "TeacherId"});
 
-
-
+Project.belongsTo(Account,{as:"leader",foreignKey: "TeamLeader"});
 
 Class.belongsToMany(Subject, {through: SubjectClass});
 Subject.belongsToMany(Class, {through: SubjectClass})

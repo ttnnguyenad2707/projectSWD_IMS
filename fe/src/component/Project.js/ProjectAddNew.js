@@ -3,7 +3,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Input, Select, DatePicker, Button } from 'antd';
 import moment from 'moment';
 import { useNavigate, useOutletContext } from 'react-router-dom';
-import { getListClass } from '../../services/product.service';
+import { createProject, getListClass } from '../../services/product.service';
+import Cookies from 'js-cookie';
 
 
 
@@ -12,6 +13,7 @@ const AddProjectForm = () => {
     useEffect(() => {
         getListClasss()
     }, [])
+    const token = Cookies.get('accessToken');
     const { Option } = Select;
     const [listclass, setListClass] = useState([])
     // const [files, setFiles] = useState([]);
@@ -19,22 +21,34 @@ const AddProjectForm = () => {
         ProjectCode: '',
         ProjectName: '',
         Description: '',
-        group: '',
-       
-       
+        classId: '',
+
+
     };
 
 
     const getListClasss = async () => {
-        const res = await getListClass()
-        setListClass(res.data.data)
+        try {
+            const res = await getListClass(token)
+            setListClass(res.data.data)
+        } catch (error) {
+            console.log(error);
+        }
+
     }
     console.log("listclass", listclass);
-    console.log("user",user);
+    console.log("user", user);
 
-    const handleSubmit = (values) => {
-        console.log('Submitted values:', {...values,TeacherId : user.id});
-        // Xử lý dữ liệu ở đây
+    const handleSubmit = async (values) => {
+        try {
+            console.log("values",{...values, TeacherId: user.id});
+            const data = await createProject({ ...values, TeacherId: user.id}, token)
+            console.log("create ", data);
+
+        } catch (error) {
+            console.log(error);
+        }
+
     };
     const nav = useNavigate();
 
@@ -62,12 +76,12 @@ const AddProjectForm = () => {
                                 </div>
                                 <div className="col-6">
                                     <div>
-                                        <label htmlFor="group">Group:</label>
+                                        <label htmlFor="classId">classId:</label>
                                         <Field
-                                            name="group"
+                                            name="classId"
                                             style={{ width: '100%' }}
                                             as={Select}
-                                            onChange={(value) => setFieldValue('group', value)}
+                                            onChange={(value) => setFieldValue('classId', value)}
                                         >
 
                                             {listclass.map((item) => (

@@ -13,5 +13,8 @@ const settingController = {
     editSetting: asyncHanler(async (req,res) => {
         await settingService.editSetting(req,res);
     }),
+    getSettingList: asyncHanler(async (req,res) => {
+        await settingService.getSettingList(req,res);
+    }),
 };
 export default settingController

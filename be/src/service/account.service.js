@@ -76,11 +76,15 @@ const accountService = {
                 path: "/",
                 sameSite: "strict",
             });
+           
             return res.status(200).json({
                 message: "Login successful",
                 data: {
-                    email: user.Email,
-                },
+                    id: user.id,
+                    Fullname:user.Fullname,
+                    Email:user.Email
+                    
+                }
             });
         } catch (error) {
             console.log("error" + error);

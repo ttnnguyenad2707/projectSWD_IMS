@@ -1,28 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Input, Select, DatePicker, Button } from 'antd';
 import moment from 'moment';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
+import { getListClass } from '../../services/product.service';
 
-const { Option } = Select;
 
-const initialValues = {
-    projectCode: '',
-    name: '',
-    description: '',
-    group: '',
-    assignTo: '',
-    dateStart: null,
-    dateEnd: null,
-};
-
-const handleSubmit = (values) => {
-    console.log('Submitted values:', values);
-    // Xử lý dữ liệu ở đây
-};
 
 const AddProjectForm = () => {
-    
+    const [user] = useOutletContext();
+    useEffect(() => {
+        getListClasss()
+    }, [])
+    const { Option } = Select;
+    const [listclass, setListClass] = useState([])
+    // const [files, setFiles] = useState([]);
+    const initialValues = {
+        ProjectCode: '',
+        ProjectName: '',
+        Description: '',
+        group: '',
+       
+       
+    };
+
+
+    const getListClasss = async () => {
+        const res = await getListClass()
+        setListClass(res.data.data)
+    }
+    console.log("listclass", listclass);
+    console.log("user",user);
+
+    const handleSubmit = (values) => {
+        console.log('Submitted values:', {...values,TeacherId : user.id});
+        // Xử lý dữ liệu ở đây
+    };
     const nav = useNavigate();
 
     return (
@@ -35,16 +48,16 @@ const AddProjectForm = () => {
                             <div className="row">
                                 <div className="col-6">
                                     <div>
-                                        <label htmlFor="projectCode">Project Code:</label>
-                                        <Field type="text" name="projectCode" as={Input} />
+                                        <label htmlFor="ProjectCode">Project Code:</label>
+                                        <Field type="text" name="ProjectCode" as={Input} />
                                     </div>
                                     <div>
-                                        <label htmlFor="name">Name:</label>
-                                        <Field type="text" name="name" as={Input} />
+                                        <label htmlFor="name">ProjectName:</label>
+                                        <Field type="text" name="ProjectName" as={Input} />
                                     </div>
                                     <div>
-                                        <label htmlFor="description">Description:</label>
-                                        <Field type="text" name="description" as={Input} />
+                                        <label htmlFor="Description">Description:</label>
+                                        <Field type="text" name="Description" as={Input} />
                                     </div>
                                 </div>
                                 <div className="col-6">
@@ -56,44 +69,16 @@ const AddProjectForm = () => {
                                             as={Select}
                                             onChange={(value) => setFieldValue('group', value)}
                                         >
-                                            <Option value="group1">Group 1</Option>
-                                            <Option value="group2">Group 2</Option>
-                                            <Option value="group3">Group 3</Option>
+
+                                            {listclass.map((item) => (
+                                                <Option key={item.id} value={item.id}>
+                                                    {item.class_name}
+                                                </Option>
+                                            ))}
                                         </Field>
                                     </div>
-                                    <div>
-                                        <label htmlFor="assignTo">Assign To:</label>
-                                        <Field
-                                            name="assignTo"
-                                            style={{ width: '100%' }}
-                                            as={Select}
-                                            onChange={(value) => setFieldValue('assignTo', value)}
-                                        >
-                                            <Option value="user1">User 1</Option>
-                                            <Option value="user2">User 2</Option>
-                                            <Option value="user3">User 3</Option>
-                                        </Field>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="dateStart">Date Start:</label>
-                                        <Field
-                                            name="dateStart"
-                                            as={DatePicker}
-                                            onChange={(value) =>
-                                                setFieldValue('dateStart', value ? moment(value) : null)
-                                            }
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="dateEnd">Date End:</label>
-                                        <Field
-                                            name="dateEnd"
-                                            as={DatePicker}
-                                            onChange={(value) =>
-                                                setFieldValue('dateEnd', value ? moment(value) : null)
-                                            }
-                                        />
-                                    </div>
+
+
                                 </div>
                             </div>
                             <div className="row" >

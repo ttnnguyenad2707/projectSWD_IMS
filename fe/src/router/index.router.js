@@ -6,6 +6,10 @@ import Login from "../component/LoginSignUp/Login.js";
 import Header from "../component/Header.js";
 import Home from "../pages/Home.js";
 import SystemSettingList from "../component/SystemSetting/SystemSettingList.js";
+import ListIssue from "../component/Issue/ListIssue.js";
+import CreateIssue from "../component/Issue/CreateIssue.js";
+import IssueDetail from "../component/Issue/IssueDetail.js";
+import UpdateIssue from "../component/Issue/UpdateIssue.js";
 
 const appRouter = createBrowserRouter([
   {
@@ -20,16 +24,32 @@ const appRouter = createBrowserRouter([
         path: "/systemsetting",
         element: <SystemSettingList />,
       },
+      {
+        path: "/issues",
+        element: <ListIssue />,
+      },
+      {
+        path: "/issues/create",
+        element: <CreateIssue />,
+      },
+      {
+        path: "/issues/:id",
+        element: <IssueDetail />,
+      },
+      {
+        path: "/issues/update/:id",
+        element: <UpdateIssue />,
+      },
     ],
   },
   {
     path: "/home",
     element: <Table />,
   },
-  {
-    path: "/class_list",
-    element: <ClassList />,
-  },
+  // {
+  //   path: "/class_list",
+  //   element: <ClassList />,
+  // },
   {
     path: "/register",
     element: <Register />,

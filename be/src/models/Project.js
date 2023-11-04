@@ -38,6 +38,14 @@ const Project = sequelize.define("project", {
     type: DataTypes.STRING,
     allowNull: true
   },
+  TeacherId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Account,
+      key: "id"
+    }
+  }
 
 });
 

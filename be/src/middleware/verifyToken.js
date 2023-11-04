@@ -1,17 +1,19 @@
 import jwt from 'jsonwebtoken'
-import asyncHanler from '../utils/asyncHandler';
+import asyncHanler from '../utils/asyncHandler.js';
 
 const checkToken = asyncHanler((req, res, next) => {
-    const token = req.headers.authorization;
+    
+    try {
+        const token = req.headers.authorization.split(" ")[1];
     const ACCESS_KEY = process.env.ACCESS_KEY;
     if (!token) {
         return res.status(401).json({ error: "Missing token" });
     }
 
-    try {
         const decoded = jwt.verify(token, ACCESS_KEY);
 
         req.user = decoded;
+        next();
 
     } catch (error) {
         return res.status(401).json({ error: "Invalid token" });
@@ -60,7 +62,7 @@ const checkTokenLeader = asyncHanler(async (req,res,next) => {
 
 const checkTokenTeacher = asyncHanler(async (req,res,next) => {
     await checkToken(req,res, () => {
-        if (req.user.roleId === 3){
+        if (req.user.role === 3){
             next();
 
         }
@@ -84,3 +86,5 @@ const checkTokenManager = asyncHanler(async (req,res,next) => {
         }
     });
 })
+
+export {checkToken,checkTokenAdmin,checkTokenLeader,checkTokenManager,checkTokenStudent,checkTokenTeacher}

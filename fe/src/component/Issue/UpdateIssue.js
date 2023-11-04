@@ -77,13 +77,12 @@ const UpdateIssue = () => {
                 onChange={handleInputChange}
               />
             </Form.Group>
-
             <Form.Group className="mb-3" controlId="user_create_id">
               <Form.Label>Creator</Form.Label>
               <Form.Control
                 type="text"
                 name="user_create_id"
-                value={issue?.user_create_id}
+                value={updateData.user_create_id}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -93,7 +92,7 @@ const UpdateIssue = () => {
               <Form.Control
                 type="text"
                 name="assign_user_id"
-                value={issue?.assign_user_id}
+                value={updateData.assign_user_id}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -103,7 +102,7 @@ const UpdateIssue = () => {
               <Form.Control
                 type="text"
                 name="description"
-                value={issue?.description}
+                value={updateData.description}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -112,7 +111,7 @@ const UpdateIssue = () => {
               <Form.Control
                 type="text"
                 name="status"
-                value={issue?.status}
+                value={updateData.status}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -121,11 +120,10 @@ const UpdateIssue = () => {
               <Form.Control
                 type="text"
                 name="complexity"
-                value={issue?.complexity}
+                value={updateData.complexity}
                 onChange={handleInputChange}
               />
             </Form.Group>
-
             <Button variant="primary" type="submit">
               Lưu Thay Đổi
             </Button>

@@ -1,9 +1,9 @@
-
+import Project from '../models/Project.js'
 
 
 const projectService = {
     createProject: async (req,res) => {
-        const {ProjectCode,ProjectName,classId,TeamLeader,Description} = req.body;
+        const {ProjectCode,ProjectName,classId,TeamLeader,Description,TeacherId} = req.body;
 
         try {
             const existProject = await Project.findOne({where: {ProjectCode}});
@@ -13,7 +13,7 @@ const projectService = {
                 })
             }
             else{
-                Project.create({ProjectCode,ProjectName,classId,TeamLeader,Description}).then((result) => {
+                Project.create({ProjectCode,ProjectName,classId,TeamLeader,Description,TeacherId}).then((result) => {
                     res.status(200).json({
                         message: "Project created successfully",
                         data: result
@@ -24,6 +24,16 @@ const projectService = {
                     })
                 });
             }
+        } catch (error) {
+            res.status(500).json({
+                message: "Server Error" + error,
+            })
+        }
+    },
+    getProjectByParams: async (req,res) => {
+        const params = req.body;
+        try {
+
         } catch (error) {
             res.status(500).json({
                 message: "Server Error" + error,

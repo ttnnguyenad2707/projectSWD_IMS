@@ -10,6 +10,10 @@ import ClassList from "../component/ClassList.component.js";
 import ProjectList from "../component/Project.js/ProjectList.js";
 import ProjectAddNew from "../component/Project.js/ProjectAddNew.js";
 import ProjectDetailAndUpdate from "../component/Project.js/ProjectDetailAndUpdate.js";
+import ListIssue from "../component/Issue/ListIssue.js";
+import CreateIssue from "../component/Issue/CreateIssue.js";
+import IssueDetail from "../component/Issue/IssueDetail.js";
+import UpdateIssue from "../component/Issue/UpdateIssue.js";
 
 const appRouter = createBrowserRouter([
   {
@@ -36,17 +40,33 @@ const appRouter = createBrowserRouter([
       {
         path: "/detailProject",
         element:<ProjectDetailAndUpdate/>
-      }
+      },
+      {
+        path: "/issues",
+        element: <ListIssue />,
+      },
+      {
+        path: "/issues/create",
+        element: <CreateIssue />,
+      },
+      {
+        path: "/issues/:id",
+        element: <IssueDetail />,
+      },
+      {
+        path: "/issues/update/:id",
+        element: <UpdateIssue />,
+      },
     ],
   },
   {
     path: "/home",
     element: <Table />,
   },
-  {
-    path: "/class_list",
-    element: <ClassList />,
-  },
+  // {
+  //   path: "/class_list",
+  //   element: <ClassList />,
+  // },
   {
     path: "/register",
     element: <Register />,

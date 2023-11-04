@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt'
-import { Account } from '../models/index.js';
+import { Account, Role } from '../models/index.js';
 import genAccessToken from './genToken.service.js';
 
 const REFRESH_KEY = process.env.REFRESH_KEY
@@ -53,7 +53,7 @@ const accountService = {
     login: async (req, res) => {
         const { email, password } = req.body;
         try {
-            const user = await Account.findOne({ where: { email } });
+            const user = await Account.findOne({ where: { email } ,include: {model:Role,as:"role"}});
 
             if (!user) {
                 return res.status(404).json({
@@ -82,7 +82,9 @@ const accountService = {
                 data: {
                     id: user.id,
                     Fullname:user.Fullname,
-                    Email:user.Email
+                    Email:user.Email,
+                    RoleId:user.roleId,
+                    Role:user.role.roleName
                     
                 }
             });

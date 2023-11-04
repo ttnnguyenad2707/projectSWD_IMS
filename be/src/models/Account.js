@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../database/mysql.js";
-
+import Role from "./Role.js";
 const Account = sequelize.define("account", {
     Fullname: {
         type: DataTypes.STRING,
@@ -27,7 +27,11 @@ const Account = sequelize.define("account", {
     roleId: {
         type: DataTypes.INTEGER, 
         allowNull: false,
-        defaultValue: 1
+        defaultValue: 1,
+        references:{
+            model: Role,
+            key:'id',
+        }
     },
 });
 

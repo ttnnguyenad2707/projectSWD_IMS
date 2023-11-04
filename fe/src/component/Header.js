@@ -58,7 +58,7 @@ const Header = () => {
                         <Nav>
                             {token ? (
                                 <>
-                                    <NavLink to="" className="nav-link" >{user.email}</NavLink>
+                                    <NavLink to="" className="nav-link" >{user?.email}</NavLink>
                                     <button className='btn bt-primary p-2 fw-bold' onClick={() => { handleLogout() }}>Đăng Xuất</button>
                                 </>
 

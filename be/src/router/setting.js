@@ -3,6 +3,8 @@ import validateData from '../middleware/validateData.js';
 import settingController from '../controller/setting.controller.js';
 const settingRouter = express.Router();
 
+settingRouter.get('/typeSetting',settingController.getTypeSetting)
+settingRouter.get("/:id",settingController.getDetailSetting)
 settingRouter.get('/',settingController.getSettingList)
 settingRouter.post('/create',settingController.createSetting);
 settingRouter.post('/type/create',settingController.createTypeSetting);

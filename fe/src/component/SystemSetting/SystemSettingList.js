@@ -1,45 +1,47 @@
-import React from 'react';
-import { Table } from 'antd';
+import React, { useEffect, useState, } from 'react';
+import {useNavigate} from "react-router-dom"
+import {  Table } from 'antd';
+import { Button, Container } from 'react-bootstrap'
+import { getSettingList } from '../../services/setting.service';
+import {} from 'react-bootstrap'
 const SystemSettingList = () => {
-    const dataSource = [
-        {
-          key: '1',
-          name: 'John Doe',
-          age: 30,
-          address: '123 ABC Street',
-        },
-        {
-          key: '2',
-          name: 'Jane Smith',
-          age: 25,
-          address: '456 XYZ Street',
-        },
-        // Thêm dữ liệu cho các hàng khác nếu cần thiết
-      ];
+    const [dataSource,setDataSource] = useState();
+    useEffect(() => {
+      getSettingList().then(data => setDataSource(data.data.data)).catch(error => console.log(error))
+    } ,[])
       
       const columns = [
         {
-          title: 'Name',
+          title: 'Setting Name',
           dataIndex: 'name',
-          key: 'name',
         },
         {
-          title: 'Age',
-          dataIndex: 'age',
-          key: 'age',
+          title: 'Type',
+          dataIndex: 'type',
         },
         {
-          title: 'Address',
-          dataIndex: 'address',
-          key: 'address',
+          title: 'Status',
+          render: (text, data) => (
+            data.status === true ? <span>Active</span> : <span>Deactivate</span>
+          )    
         },
+        {
+          title: "Action",
+          render: (text,data) => (
+            <Button variant='primary' onClick={() => handeEditSetting(data.id)}>Edit</Button>
+          )
+        }
         // Thêm cột khác nếu cần thiết
       ];
+      const navigate = useNavigate();
+      const handeEditSetting = (id) => {
+        navigate(`/systemsetting/edit/${id}`)
+
+      }
     return (
-        <div>
-            sad
+        <Container>
             <Table dataSource={dataSource} columns={columns} />
-        </div>
+        </Container>
     );
 };
 

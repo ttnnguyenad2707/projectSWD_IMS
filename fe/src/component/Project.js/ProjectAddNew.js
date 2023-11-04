@@ -5,6 +5,7 @@ import moment from 'moment';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { createProject, getListClass } from '../../services/product.service';
 import Cookies from 'js-cookie';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
@@ -44,9 +45,12 @@ const AddProjectForm = () => {
             console.log("values",{...values, TeacherId: user.id});
             const data = await createProject({ ...values, TeacherId: user.id}, token)
             console.log("create ", data);
+            toast.success(data.data.message)
 
         } catch (error) {
             console.log(error);
+            toast(error.response.data.message)
+
         }
 
     };

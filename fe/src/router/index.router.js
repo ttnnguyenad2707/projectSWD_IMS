@@ -6,6 +6,10 @@ import Login from "../component/LoginSignUp/Login.js";
 import Header from "../component/Header.js";
 import Home from "../pages/Home.js";
 import SystemSettingList from "../component/SystemSetting/SystemSettingList.js";
+import ClassList from "../component/ClassList.component.js";
+import ProjectList from "../component/Project.js/ProjectList.js";
+import ProjectAddNew from "../component/Project.js/ProjectAddNew.js";
+import ProjectDetailAndUpdate from "../component/Project.js/ProjectDetailAndUpdate.js";
 import ListIssue from "../component/Issue/ListIssue.js";
 import CreateIssue from "../component/Issue/CreateIssue.js";
 import IssueDetail from "../component/Issue/IssueDetail.js";
@@ -26,8 +30,21 @@ const appRouter = createBrowserRouter([
         element: <SystemSettingList />,
       },
       {
+        path: "/projectList",
+        element: <ProjectList />,
+      },
+      {
+        path: "/addNewProject",
+        element: <ProjectAddNew />,
+      }
+      ,
+      {
+        path: "/detailProject/:id",
+        element: <ProjectDetailAndUpdate />
+      },
+      {
         path: "systemsetting/edit/:id",
-        element: <EditSetting/>
+        element: <EditSetting />
       },
       {
         path: "/issues",

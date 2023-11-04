@@ -7,6 +7,8 @@ import Subject from "./Subject.js";
 import SubjectClass from "./Subjectclass.js";
 
 import Issue from "./Issue.js";
+import Setting from "./setting.js";
+import typeSetting from "./typeSetting.js";
 // 1 - nhiều account - role
 Role.hasMany(Account, { as: "account", foreignKey: "roleId",sourceKey: "id" });
 Account.belongsTo(Role, { as: "role", foreignKey: "roleId",targetKey: "id"  });
@@ -34,4 +36,5 @@ Subject.belongsToMany(Class, {through: SubjectClass})
 Project.hasMany(Issue,{as: 'issue',foreignKey: "projectId",sourceKey: "id"});
 Issue.belongsTo(Project,{as: 'project',foreignKey:"projectId",sourceKey: "id" });
 
+Setting.belongsTo(typeSetting,{as:'settingType',foreignKey:"type"});
 export { Account, Role, Class, Project,Issue };

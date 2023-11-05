@@ -98,7 +98,38 @@ const accountService = {
     logout: async (req, res) => {
         res.clearCookie("accessToken");
         res.status(200).json("Logout successful");
+    },
+    getAccountByRole: async (req, res) => {
+        const { id,roleId } = req.query;
+        const where = {};
+        if (id) {
+            where.id = id;
+          }
+        
+          if (roleId) {
+            where.roleId = roleId;
+          }
+        try {
+            Account.findAll({where}).then(data => {
+                if(!data){
+                    return res.status(200).json({
+                        message: "not found",
+                    });
+                }
+                const filteredData = data.map(account => {
+                    const { Password, ...accountWithoutPassword } = account.toJSON();
+                    return accountWithoutPassword;
+                });
+    
+                return res.status(200).json(filteredData);
+            });
+        } catch (error) {
+            return res.status(500).json({
+                message: "Internal Server Error",
+            });
+        }
     }
+    
 
 
 }

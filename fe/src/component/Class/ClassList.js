@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ButtonGroup, Button } from "react-bootstrap";
+//import Header from "../Header";
 const ClassList = () => {
   const [classList, setClassList] = useState([]);
   const apiUrl = "http://localhost:5000/class/list";
@@ -30,6 +31,7 @@ const ClassList = () => {
         margin: "20px",
       }}
     >
+      {/* <Header /> */}
       <h1>Class List</h1>
 
       <ButtonGroup aria-label='Basic example'>

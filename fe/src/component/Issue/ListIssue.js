@@ -10,7 +10,6 @@ const IssueList = () => {
     const [issueList, setIssueList] = useState([]);
     // const navigate = useNavigate();
 
-
     const getIssueList = async () => {
         try {
             const result = await getAllIssue();

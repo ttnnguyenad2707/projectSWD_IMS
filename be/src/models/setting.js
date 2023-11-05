@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../database/mysql.js";
-import typeSetting from "./typeSetting.js";
+import typeSetting from "./TypeSetting.js";
 
 const Setting = sequelize.define("setting", {
   name: {

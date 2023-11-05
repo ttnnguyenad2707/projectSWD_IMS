@@ -1,4 +1,4 @@
-import subjectService from "../service/subject.service.js"
+import subjectService from "../service/subjectService.js"
 import  Subject  from "../models/Subject.js"
 
 async function createSubject(req,res){

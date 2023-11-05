@@ -47,6 +47,10 @@ const appRouter = createBrowserRouter([
         element: <EditSetting />,
       },
       {
+        path: "systemsetting/edit/:id",
+        element: <EditSetting/>
+      },
+      {
         path: "/issues",
         element: <ListIssue />,
       },

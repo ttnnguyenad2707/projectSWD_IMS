@@ -98,7 +98,25 @@ const accountService = {
     logout: async (req, res) => {
         res.clearCookie("accessToken");
         res.status(200).json("Logout successful");
+    },
+    getAccountByRole: async (req, res) => {
+        const { roleId } = req.params;
+        try {
+            Account.findAll({ where: { roleId } }).then(data => {
+                const filteredData = data.map(account => {
+                    const { Password, ...accountWithoutPassword } = account.toJSON();
+                    return accountWithoutPassword;
+                });
+    
+                return res.status(200).json(filteredData);
+            });
+        } catch (error) {
+            return res.status(500).json({
+                message: "Internal Server Error",
+            });
+        }
     }
+    
 
 
 }

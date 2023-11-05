@@ -1,3 +1,4 @@
+import Account from "../models/Account.js";
 import Role from "../models/Role.js"
 import accountService from "../service/accountService.js"
 import asyncHandler from "./asyncHandler.js"
@@ -19,6 +20,9 @@ const accountController = {
         await Role.create({roleName});
         return res.send("add oke")
     }),
+    getAccountByRole: asyncHandler(async(req,res) => {
+        await accountService.getAccountByRole(req,res);
+    })
 }
 
 export default accountController

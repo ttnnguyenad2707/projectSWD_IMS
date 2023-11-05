@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
-import { Account } from '../models/index.js';
-import genAccessToken from './genToken.service.js';
+import { Account, Role } from '../models/Index.js';
+import genAccessToken from './genTokenService.js';
 
 const REFRESH_KEY = process.env.REFRESH_KEY
 
@@ -53,7 +53,7 @@ const accountService = {
     login: async (req, res) => {
         const { email, password } = req.body;
         try {
-            const user = await Account.findOne({ where: { email } });
+            const user = await Account.findOne({ where: { email } ,include: {model:Role,as:"role"}});
 
             if (!user) {
                 return res.status(404).json({
@@ -76,11 +76,17 @@ const accountService = {
                 path: "/",
                 sameSite: "strict",
             });
+           
             return res.status(200).json({
                 message: "Login successful",
                 data: {
-                    email: user.Email,
-                },
+                    id: user.id,
+                    Fullname:user.Fullname,
+                    Email:user.Email,
+                    RoleId:user.roleId,
+                    Role:user.role.roleName
+                    
+                }
             });
         } catch (error) {
             console.log("error" + error);

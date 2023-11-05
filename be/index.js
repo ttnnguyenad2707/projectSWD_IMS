@@ -5,6 +5,7 @@ import cors from 'cors';
 import sequelize from './src/database/mysql.js';
 import router from './src/router/index.js'
 import cookieParser from 'cookie-parser';
+import Role from './src/models/Role.js';
 
 dotenv.config();
 const app = express()
@@ -23,9 +24,12 @@ app.listen(port, async () => {
   }).catch((error) => {
     console.error('Error in connect database', error);
   });
-
-  
-  sequelize.sync()
-
+  await sequelize.sync();
+  const rolesToCreate = ['student', 'leader', 'teacher', 'manager', 'admin'];
+  for (const roleName of rolesToCreate) {
+    await Role.findOrCreate({
+      where: { roleName },
+    });
+  }
   console.log(`Example app listening on port ${port}`)
 })

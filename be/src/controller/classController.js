@@ -1,5 +1,5 @@
-import classService from "../service/class.service.js";
-import asyncHandler from "../utils/asyncHandler.js";
+import classService from "../service/classService.js";
+import asyncHandler from "./asyncHandler.js"
 const classCtrl = {
   getAllClass: (req, res) => {
     classService.listClass(req, res);

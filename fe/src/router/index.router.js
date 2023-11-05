@@ -62,6 +62,10 @@ const appRouter = createBrowserRouter([
         path: "/issues/update/:id",
         element: <UpdateIssue />,
       },
+      {
+        path: "/admin/subject",
+        element: <SubjectList/>,
+      },
     ],
   },
   {
@@ -79,10 +83,6 @@ const appRouter = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
-  },
-  {
-    path: "/admin/subject",
-    element: <SubjectList/>,
   },
 ]);
 export default appRouter;

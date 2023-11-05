@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
 import { Space, Table, Tag } from 'antd';
-import { getSubjectlist, getSubject, newSubject, removeSubject, updateSubject } from '../../services/subjectService';
+import { getSubjectlist, getSubject, newSubject, removeSubject, updateSubject,activeSubject,deactiveSubject } from '../../services/subjectService';
 import { ToastContainer, toast } from 'react-toastify';
 const SubjectList = () => {
     const [dataIndex, setDataIndex] = useState();
@@ -9,10 +9,13 @@ const SubjectList = () => {
     const [datareset, setdatareset] = useState();
     const [distinguish, setdistinguish] = useState();
     const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
     const inputName = useRef();
     const inputDescription = useRef();
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleClose2 = () => setShow2(false);
+    const handleShow2 = () => setShow2(true);
     const getsubjectList = async () => {
         try {
             const data = (await getSubjectlist()).data.data
@@ -31,7 +34,25 @@ const SubjectList = () => {
         }
     }
 
-    const addSubject = async (name,description) => {
+    const activesubject = async (id) => {
+        try {
+            const data = (await activeSubject(id))
+            console.log(data);
+            setdatareset(data)
+        } catch (error) {
+
+        }
+    }
+    const deactivesubject = async (id) => {
+        try {
+            const data = (await deactiveSubject(id))
+            console.log(data);
+            setdatareset(data)
+        } catch (error) {
+
+        }
+    }
+    const addSubject = async (name, description) => {
         try {
             const inData = {
                 "name": name,
@@ -47,7 +68,7 @@ const SubjectList = () => {
         }
     }
 
-    const updatesubject = async (name,description) => {
+    const updatesubject = async (name, description) => {
         try {
             const inData = {
                 "id": subject.id,
@@ -93,22 +114,32 @@ const SubjectList = () => {
         handleShow()
     }
 
+    const clickActiveSubject = (record) => {
+        activesubject(record.id)
+    }
+    const clickDeActiveSubject = (record) => {
+        deactivesubject(record.id)
+    }
+    const clickDetailSubject = (record) => {
+        setSubject(record)
+        handleShow2()
+    }
     const handleSubmit = (name) => {
-        if(name == "Add"){
+        if (name == "Add") {
             const name = inputName.current.value;
             const description = inputDescription.current.value;
-            addSubject(name,description)
+            addSubject(name, description)
             handleClose()
         }
         else {
             const name = inputName.current.value;
             const description = inputDescription.current.value;
             console.log(description, "hihi");
-            updatesubject(name,description)
+            updatesubject(name, description)
             handleClose()
         }
 
-        
+
     }
     useEffect(() => {
         getsubjectList();
@@ -210,11 +241,10 @@ const SubjectList = () => {
             key: 'action',
             render: (record) => (
                 <Space size="middle">
-                    <Button variant="primary" onClick={()=>clickUpdateSubject(record)}>Update</Button>
+                    <Button variant="primary" onClick={() => clickUpdateSubject(record)}>Update</Button>
                     <Button variant="warning" onClick={() => removesubject(record.id, record.name)}>Delete</Button>
-                    <Button variant="success">Active</Button>
-                    <Button variant="danger">Deactive</Button>
-                    <Button variant="info">Detail</Button>
+                    {record.status == 1 ? (<Button variant="danger" onClick={() => clickDeActiveSubject(record)}>Deactive</Button>):(<Button variant="success" onClick={() => clickActiveSubject(record)}>Active</Button>)}
+                    <Button variant="info" onClick={() => clickDetailSubject(record)}>Detail</Button>
                 </Space>
             ),
             width: '30%'
@@ -245,33 +275,52 @@ const SubjectList = () => {
                 {distinguish === "Add" ? (<Modal.Body>
                     <div className='d-flex gap-2'>
                         <label for="name" className='me-4'>Name</label>
-                        <input type='text' placeholder='Name' ref={inputName} id='name' style={{width:'80%', height: '30px'}} />
+                        <input type='text' placeholder='Name' ref={inputName} id='name' style={{ width: '80%', height: '30px' }} />
                     </div>
                     <div className='d-flex gap-2 mt-3'>
                         <label for="Description">Description</label>
-                        <input type='text' placeholder='Name' ref={inputDescription} id='Description' style={{width:'80%',height: '30px'}}/>
+                        <input type='text' placeholder='Name' ref={inputDescription} id='Description' style={{ width: '80%', height: '30px' }} />
                     </div>
                 </Modal.Body>)
                     :
                     (<Modal.Body>
                         <div className='d-flex gap-2'>
                             <label for="name" className='me-4'>Name</label>
-                            <input type='text' placeholder={subject?.name} ref={inputName} id='name'  style={{width:'80%', height: '30px'}} />
+                            <input type='text' placeholder={subject?.name} ref={inputName} id='name' style={{ width: '80%', height: '30px' }} />
                         </div>
                         <div className='d-flex gap-2 mt-3'>
                             <label for="Description">Description</label>
-                            <input type='text' placeholder={subject?.description} ref={inputDescription} id='Description' style={{width:'80%',height: '30px'}}/>
+                            <input type='text' placeholder={subject?.description} ref={inputDescription} id='Description' style={{ width: '80%', height: '30px' }} />
                         </div>
                         <div className='d-flex gap-2 mt-3'>
                             <label for="Assignted">Assignted</label>
-                            <input type='text' placeholder='Assignted' id='Description' style={{width:'80%',height: '30px'}}/>
+                            <input type='text' placeholder='Assignted' id='Description' style={{ width: '80%', height: '30px' }} />
                         </div>
                     </Modal.Body>)}
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    {distinguish === "Add" ? (<Button variant="primary" onClick={() => handleSubmit("Add")}>Understood</Button>) : (  <Button variant="primary" onClick={() => handleSubmit("Update")}>Understood</Button>)}
+                    {distinguish === "Add" ? (<Button variant="primary" onClick={() => handleSubmit("Add")}>Add</Button>) : (<Button variant="primary" onClick={() => handleSubmit("Update")}>Update</Button>)}
+                </Modal.Footer>
+            </Modal>
+            <Modal
+                show={show2}
+                onHide={handleClose2}
+                backdrop="static"
+                keyboard={false}
+                size="lg"
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>{subject?.name}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {subject?.description}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose2}>
+                        Close
+                    </Button>
                 </Modal.Footer>
             </Modal>
         </Container>

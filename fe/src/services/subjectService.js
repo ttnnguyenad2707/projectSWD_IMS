@@ -41,6 +41,34 @@ export const getSubject = async (id) => {
     )
 }
 
+export const activeSubject = async (id) => {
+    const token = Cookies.get('accessToken');
+    console.log(id);
+    return await axios.post(
+        `${BASE_URL}/subject/activeStatus/${id}`,
+        {
+            withCredentials: true,
+            headers: {
+                authorization: `Bearer ${token}`,
+            }
+        }
+    )
+}
+
+export const deactiveSubject = async (id) => {
+    const token = Cookies.get('accessToken');
+    console.log(id);
+    return await axios.post(
+        `${BASE_URL}/subject/deactiveStatus/${id}`,
+        {
+            withCredentials: true,
+            headers: {
+                authorization: `Bearer ${token}`,
+            }
+        }
+    )
+}
+
 export const updateSubject = async (data) => {
     const token = Cookies.get('accessToken');
     return await axios.post(

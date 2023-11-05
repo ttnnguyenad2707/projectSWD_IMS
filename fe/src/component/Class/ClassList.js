@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ButtonGroup, Button } from "react-bootstrap";
-import Header from "../Header";
+//import Header from "../Header";
 const ClassList = () => {
   const [classList, setClassList] = useState([]);
   const apiUrl = "http://localhost:5000/class/list";

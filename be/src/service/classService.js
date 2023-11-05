@@ -2,8 +2,16 @@ import { Class } from "../models/Index.js";
 
 const classService = {
   createClass: async (req, res) => {
-    const { class_name, code, semester, subject_id, teacher_id, status } =
-      req.body;
+    const {
+      class_name,
+      code,
+      semester,
+      subject_id,
+      teacher_id,
+      status,
+      student_ids,
+    } = req.body;
+
     await Class.create({
       class_name: class_name,
       code: code,
@@ -11,10 +19,9 @@ const classService = {
       subject_id: subject_id,
       teacher_id: teacher_id,
       status_class: status,
-    }).then(data => {
-      res.status(200).json({ message: "create successful",data });
+    }).then((data) => {
+      res.status(200).json({ message: "create successful", data });
     });
-    
   },
   listClass: async (req, res) => {
     try {

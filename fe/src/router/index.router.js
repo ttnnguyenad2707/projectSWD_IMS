@@ -6,10 +6,7 @@ import Login from "../component/LoginSignUp/Login.js";
 import Header from "../component/Header.js";
 import Home from "../pages/Home.js";
 import SystemSettingList from "../component/SystemSetting/SystemSettingList.js";
-<<<<<<< HEAD
-import ClassList from "../component/Class/ClassList.js";
-=======
-import ClassList from "../component/ClassList.component.js";
+import ClassList from "../component/Classes/ClassList.js";
 import ProjectList from "../component/Project.js/ProjectList.js";
 import ProjectAddNew from "../component/Project.js/ProjectAddNew.js";
 import ProjectDetailAndUpdate from "../component/Project.js/ProjectDetailAndUpdate.js";
@@ -18,7 +15,7 @@ import CreateIssue from "../component/Issue/CreateIssue.js";
 import IssueDetail from "../component/Issue/IssueDetail.js";
 import UpdateIssue from "../component/Issue/UpdateIssue.js";
 import EditSetting from "../component/SystemSetting/EditSetting.js";
->>>>>>> e1f0dd8f4e21fad61325736147e7131778a8f7de
+import CreateClass from "../component/Classes/CreateClass.js";
 
 const appRouter = createBrowserRouter([
   {
@@ -40,15 +37,14 @@ const appRouter = createBrowserRouter([
       {
         path: "/addNewProject",
         element: <ProjectAddNew />,
-      }
-      ,
+      },
       {
         path: "/detailProject/:id",
-        element: <ProjectDetailAndUpdate />
+        element: <ProjectDetailAndUpdate />,
       },
       {
         path: "systemsetting/edit/:id",
-        element: <EditSetting />
+        element: <EditSetting />,
       },
       {
         path: "/issues",
@@ -58,6 +54,7 @@ const appRouter = createBrowserRouter([
         path: "/issues/create",
         element: <CreateIssue />,
       },
+
       {
         path: "/issues/:id",
         element: <IssueDetail />,
@@ -71,6 +68,10 @@ const appRouter = createBrowserRouter([
   {
     path: "/home",
     element: <Table />,
+  },
+  {
+    path: "/class/create",
+    element: <CreateClass />,
   },
   {
     path: "/classlist",

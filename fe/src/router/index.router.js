@@ -15,7 +15,7 @@ import CreateIssue from "../component/Issue/CreateIssue.js";
 import IssueDetail from "../component/Issue/IssueDetail.js";
 import UpdateIssue from "../component/Issue/UpdateIssue.js";
 import EditSetting from "../component/SystemSetting/EditSetting.js";
-
+import SubjectList from "../component/subject/subjectList.js";
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -79,6 +79,10 @@ const appRouter = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/admin/subject",
+    element: <SubjectList/>,
   },
 ]);
 export default appRouter;

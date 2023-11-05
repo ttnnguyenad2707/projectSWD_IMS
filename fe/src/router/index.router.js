@@ -15,6 +15,7 @@ import CreateIssue from "../component/Issue/CreateIssue.js";
 import IssueDetail from "../component/Issue/IssueDetail.js";
 import UpdateIssue from "../component/Issue/UpdateIssue.js";
 import EditSetting from "../component/SystemSetting/EditSetting.js";
+import AddSetting from "../component/SystemSetting/AddSetting.js";
 
 const appRouter = createBrowserRouter([
   {
@@ -47,8 +48,8 @@ const appRouter = createBrowserRouter([
         element: <EditSetting />
       },
       {
-        path: "systemsetting/edit/:id",
-        element: <EditSetting/>
+        path: "systemsetting/add",
+        element: <AddSetting />
       },
       {
         path: "/issues",

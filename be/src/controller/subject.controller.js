@@ -40,6 +40,7 @@ async function updateSubjectList(req,res){
 async function deleteSubjectList(req,res){
     try {
         const {subjectId} = req.body
+        console.log(subjectId);
         const subject = await subjectService.deleteSubject({subjectId});
         if(subject == true){
             res.status(200).json({

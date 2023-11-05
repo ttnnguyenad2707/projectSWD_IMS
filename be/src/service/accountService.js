@@ -103,6 +103,11 @@ const accountService = {
         const { roleId } = req.params;
         try {
             Account.findAll({ where: { roleId } }).then(data => {
+                if(!data){
+                    return res.status(200).json({
+                        message: "not found",
+                    });
+                }
                 const filteredData = data.map(account => {
                     const { Password, ...accountWithoutPassword } = account.toJSON();
                     return accountWithoutPassword;

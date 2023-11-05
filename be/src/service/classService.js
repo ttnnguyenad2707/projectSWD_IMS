@@ -1,4 +1,4 @@
-import { Class } from "../models/index.js";
+import { Class } from "../models/Index.js";
 
 const classService = {
   createClass: async (req, res) => {

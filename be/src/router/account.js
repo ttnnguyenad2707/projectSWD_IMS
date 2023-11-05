@@ -1,6 +1,6 @@
 import express from 'express';
-import accountController from '../controller/account.controller.js';
-import accountValidator from '../validations/account.validation.js'
+import accountController from '../controller/accountController.js';
+import accountValidator from '../validations/accountValidation.js'
 import validateData from '../middleware/validateData.js';
 const accountRouter = express.Router();
 

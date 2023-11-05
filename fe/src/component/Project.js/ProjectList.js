@@ -27,18 +27,18 @@ const ProjectList = () => {
       dataIndex: 'ProjectCode',
       filters:
         project.map((p) => ({
-          text: p.ProjectCode,
-          value: p.ProjectCode
+          text: p?.ProjectCode,
+          value: p?.ProjectCode
         }))
       ,
       onFilter: (value, record) => record.ProjectCode.indexOf(value) === 0,
-      sorter: (a, b) => a.ProjectCode.localeCompare(b.ProjectCode),
+      sorter: (a, b) => a?.ProjectCode.localeCompare(b?.ProjectCode),
       sortDirections: ['ascend', 'descend'],
     },
     {
       title: 'ProjectName',
       dataIndex: 'ProjectName',
-      sorter: (a, b) => a.ProjectName.localeCompare(b.ProjectName),
+      sorter: (a, b) => a?.ProjectName.localeCompare(b?.ProjectName),
       sortDirections: ['ascend', 'descend'],
     },
     {

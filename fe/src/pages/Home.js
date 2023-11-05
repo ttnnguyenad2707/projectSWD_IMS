@@ -10,20 +10,21 @@ const Home = () => {
 
     return (
         <div>
-            Home
             <p>{user?.email}
             </p>
-           
+
             <Container fluid>
                 <Row>
-                    <Col  md={2}>
+                    <Col md={2}>
                         <div className='gap-3 d-flex flex-column'>
-                        {user?.Role ==="teacher" ?  <button className='btn btn-primary' onClick={() => { nav("/projectList") }}>go to project</button> : "" }
-                        {user?.Role ==="admin" ?    <Link className='btn btn-primary' to='/systemsetting'> Go to Setting list </Link>: "" }
+                            {user?.Role === "teacher" ? <button className='btn btn-primary' onClick={() => { nav("/projectList") }}>Project</button> : ""}
+                            {user?.Role === "admin" ? <Link className='btn btn-primary' to='/systemsetting'> Setting </Link> : ""}
+                            {user?.Role === "student" ? <Link className='btn btn-primary' to='/issues'> Issue </Link> : ""}
+                            {user?.Role === "teacher" ? <Link className='btn btn-primary' to='/classlist'> Class </Link> : ""}
                         </div>
                     </Col>
                     <Col>
-                        
+
                     </Col>
                 </Row>
             </Container>

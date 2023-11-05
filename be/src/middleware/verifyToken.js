@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import asyncHanler from '../utils/asyncHandler.js';
+import asyncHanler from '../controller/asyncHandler.js';
 
 const checkToken = asyncHanler((req, res, next) => {
     
@@ -22,7 +22,7 @@ const checkToken = asyncHanler((req, res, next) => {
 
 const checkTokenAdmin = asyncHanler(async (req,res,next) => {
     await checkToken(req,res, () => {
-        if (req.user.roleId === 5){
+        if (req.user.role === 5){
             next();
 
         }
@@ -35,7 +35,7 @@ const checkTokenAdmin = asyncHanler(async (req,res,next) => {
 
 const checkTokenStudent = asyncHanler(async (req,res,next) => {
     await checkToken(req,res, () => {
-        if (req.user.roleId === 1){
+        if (req.user.role === 1){
             next();
 
         }
@@ -48,7 +48,7 @@ const checkTokenStudent = asyncHanler(async (req,res,next) => {
 
 const checkTokenLeader = asyncHanler(async (req,res,next) => {
     await checkToken(req,res, () => {
-        if (req.user.roleId === 2){
+        if (req.user.role === 2){
             next();
 
         }
@@ -76,7 +76,7 @@ const checkTokenTeacher = asyncHanler(async (req,res,next) => {
 
 const checkTokenManager = asyncHanler(async (req,res,next) => {
     await checkToken(req,res, () => {
-        if (req.user.roleId === 4){
+        if (req.user.role === 4){
             next();
 
         }

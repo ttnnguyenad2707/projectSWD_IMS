@@ -68,10 +68,10 @@ const appRouter = createBrowserRouter([
     path: "/home",
     element: <Table />,
   },
-  // {
-  //   path: "/class_list",
-  //   element: <ClassList />,
-  // },
+  {
+    path: "/classlist",
+    element: <ClassList />,
+  },
   {
     path: "/register",
     element: <Register />,

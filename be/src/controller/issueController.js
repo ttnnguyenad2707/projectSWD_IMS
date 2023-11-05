@@ -1,5 +1,5 @@
 import issueService from "../service/issueService.js";
-import asyncHandler from "../utils/asyncHandler.js";
+import asyncHandler from "./asyncHandler.js"
 const issueController = {
   getAllIssue: asyncHandler((req, res) => {
     issueService.listIssue(req, res);

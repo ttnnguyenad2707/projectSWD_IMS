@@ -51,7 +51,7 @@ const Header = () => {
                                 )
                             }
                             <Nav.Link href="#pricing">Pricing</Nav.Link>
-                           
+
                         </Nav>
                         <Nav>
                             {token ? (

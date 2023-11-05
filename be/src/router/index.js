@@ -14,5 +14,3 @@ indexRouter.use("/project",projectRouter)
 indexRouter.use("/subject",subjectRouter);
 indexRouter.use("/setting",settingRouter);
 export default indexRouter;
-
-//dồn router vào 1 file code, router cụ thể thì cho vào controller

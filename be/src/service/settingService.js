@@ -1,5 +1,5 @@
-import Setting from "../models/setting.js";
-import typeSetting from "../models/typeSetting.js";
+import Setting from "../models/Setting.js";
+import typeSetting from "../models/TypeSetting.js";
 
 
 

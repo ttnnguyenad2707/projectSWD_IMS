@@ -100,9 +100,17 @@ const accountService = {
         res.status(200).json("Logout successful");
     },
     getAccountByRole: async (req, res) => {
-        const { roleId } = req.params;
+        const { id,roleId } = req.query;
+        const where = {};
+        if (id) {
+            where.id = id;
+          }
+        
+          if (roleId) {
+            where.roleId = roleId;
+          }
         try {
-            Account.findAll({ where: { roleId } }).then(data => {
+            Account.findAll({where}).then(data => {
                 if(!data){
                     return res.status(200).json({
                         message: "not found",

@@ -53,4 +53,26 @@ async function getSubjectbyID ({subjectId}) {
         return error.message;
     }
 }
-export default {createSubject, updateSubject, deleteSubject, assaiSubject,getSubjectlist,getSubjectbyID}
+async function activeStatus ({subjectId}) {
+    try {
+        const subject = await Subject.findOne({where:{id: subjectId}});
+        await subject.update({status: true})
+        console.log(subject);
+        return subject;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+async function deactiveStatus ({subjectId}) {
+    try {
+        console.log(subjectId,'hihi');
+        const subject = await Subject.findOne({where:{id: subjectId}});
+        await subject.update({status: false})
+        console.log(subject);
+        return subject;
+    } catch (error) {
+        return error.message;
+    }
+}
+export default {createSubject, updateSubject, deleteSubject, assaiSubject,getSubjectlist,getSubjectbyID,deactiveStatus,activeStatus}

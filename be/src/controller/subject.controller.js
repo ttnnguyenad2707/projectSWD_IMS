@@ -81,4 +81,31 @@ async function getSubjectbyID(req,res){
         res.status(500).json({ message: error.toString() })
     }
 }
-export default {createSubject,getSubjectList,assaiSubject,deleteSubjectList,updateSubjectList,getSubjectbyID}
+async function activeStatus(req,res){
+    try {
+        const subjectId= req.params.id;
+        console.log(subjectId);
+        const subject = await subjectService.activeStatus({subjectId});
+        res.status(200).json({
+            message: 'okok',
+            data: subject,
+        })
+    } catch (error) {
+        res.status(500).json({ message: error.toString() })
+    }
+}
+async function deactiveStatus(req,res){
+    try {
+        const subjectId= req.params.id;
+        console.log(req.params.id);
+        console.log(subjectId);
+        const subject = await subjectService.deactiveStatus({subjectId});
+        res.status(200).json({
+            message: 'okok',
+            data: subject,
+        })
+    } catch (error) {
+        res.status(500).json({ message: error.toString() })
+    }
+}
+export default {createSubject,getSubjectList,assaiSubject,deleteSubjectList,updateSubjectList,getSubjectbyID,deactiveStatus,activeStatus}

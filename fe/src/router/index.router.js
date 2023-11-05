@@ -6,6 +6,7 @@ import Login from "../component/LoginSignUp/Login.js";
 import Header from "../component/Header.js";
 import Home from "../pages/Home.js";
 import SystemSettingList from "../component/SystemSetting/SystemSettingList.js";
+import ClassList from "../component/Class/ClassList.js";
 
 const appRouter = createBrowserRouter([
   {

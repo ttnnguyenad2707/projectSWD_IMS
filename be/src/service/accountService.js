@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
-import { Account, Role } from '../models/index.js';
-import genAccessToken from './genToken.service.js';
+import { Account, Role } from '../models/Index.js';
+import genAccessToken from './genTokenService.js';
 
 const REFRESH_KEY = process.env.REFRESH_KEY
 

@@ -45,5 +45,5 @@ const SystemSettingList = () => {
         </Container>
     );
 };
+export default SystemSettingList
 
-export default SystemSettingList;

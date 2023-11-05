@@ -1,6 +1,6 @@
 import Role from "../models/Role.js"
-import accountService from "../service/account.service.js"
-import asyncHandler from "../utils/asyncHandler.js"
+import accountService from "../service/accountService.js"
+import asyncHandler from "./asyncHandler.js"
 
 const accountController = {
     register: asyncHandler(async (req,res) => {

@@ -7,8 +7,8 @@ import Subject from "./Subject.js";
 import SubjectClass from "./Subjectclass.js";
 
 import Issue from "./Issue.js";
-import Setting from "./setting.js";
-import typeSetting from "./typeSetting.js";
+import Setting from "./Setting.js";
+import typeSetting from "./TypeSetting.js";
 // 1 - nhiều account - role
 Role.hasMany(Account, { as: "account", foreignKey: "roleId",sourceKey: "id" });
 Account.belongsTo(Role, { as: "role", foreignKey: "roleId",targetKey: "id"  });

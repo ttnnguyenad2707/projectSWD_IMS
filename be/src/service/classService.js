@@ -1,4 +1,4 @@
-import { Class } from "../models/Index.js";
+import { Class, ClassAccount } from "../models/Index.js";
 
 const classService = {
   createClass: async (req, res) => {
@@ -12,7 +12,7 @@ const classService = {
       student_ids,
     } = req.body;
 
-    await Class.create({
+    const createdClass = await Class.create({
       class_name: class_name,
       code: code,
       semester: semester,
@@ -20,6 +20,14 @@ const classService = {
       teacher_id: teacher_id,
       status_class: status,
     }).then((data) => {
+      const createdClassId = createdClass.id;
+      student_ids.array.forEach((element) => {
+        ClassAccount.create({
+          classId: createdClassId,
+          accountId: element,
+        });
+      });
+
       res.status(200).json({ message: "create successful", data });
     });
   },

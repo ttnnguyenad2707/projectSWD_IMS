@@ -1,16 +1,58 @@
-import { useState } from "react";
-import "../../class.css";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "../../class.css";
+
 const CreateClass = () => {
+  const studentsUrl = "http://localhost:5000/account/role/1";
+  const teacherUrl = "http://localhost:5000/account/role/3";
+  const subjectUrl = "http://localhost:5000/subject";
+
   const [classInfo, setClassInfo] = useState({
     className: "",
     code: "",
-    subjectId: 0, // Updated to store the subject ID as a number
-    teacherId: 0, // Updated to store the teacher ID as a number
+    subjectId: 0,
+    teacherId: 0,
     status: "",
     semester: "",
-    students: [], // Updated to store selected students as an array of numbers
+    students: [],
   });
+
+  const [students, setStudents] = useState([]); // State to store the list of students
+  const [teachers, setTeachers] = useState([]); // State to store the list of teachers
+  const [subjects, setSubjects] = useState([]);
+
+  useEffect(() => {
+    // Fetch the list of students
+    axios
+      .get(studentsUrl)
+      .then((response) => {
+        setStudents(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching students:", error);
+      });
+
+    // Fetch the list of subjects
+    axios
+      .get(subjectUrl)
+      .then((response) => {
+        //   setSubjects(response.data);
+        setSubjects([]);
+      })
+      .catch((error) => {
+        console.error("Error fetching subjects:", error);
+      });
+
+    // Fetch the list of teachers
+    axios
+      .get(teacherUrl)
+      .then((response) => {
+        setTeachers(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching teachers:", error);
+      });
+  }, [studentsUrl, teacherUrl, subjectUrl]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -18,20 +60,18 @@ const CreateClass = () => {
   };
 
   const handleTeacherChange = (e) => {
-    const teacherId = parseInt(e.target.value, 10); // Parse the value to an integer
+    const teacherId = parseInt(e.target.value, 10);
     setClassInfo({ ...classInfo, teacherId });
   };
 
   const handleStudentChange = (e) => {
-    const selectedStudents = Array.from(
-      e.target.selectedOptions,
-      (option) => parseInt(option.value, 10), // Parse the values to integers
+    const selectedStudents = Array.from(e.target.selectedOptions, (option) =>
+      parseInt(option.value, 10),
     );
     setClassInfo({ ...classInfo, students: selectedStudents });
   };
 
   const submitForm = () => {
-    // Handle submitting the form data, including subject ID, teacher ID, and student IDs
     console.log(classInfo);
 
     const apiUrl = "http://localhost:5000/class";
@@ -40,11 +80,9 @@ const CreateClass = () => {
       .post(apiUrl, classInfo)
       .then((response) => {
         console.log("Data sent successfully:", response.data);
-        // You can add additional handling after a successful POST request.
       })
       .catch((error) => {
         console.error("Error sending data:", error);
-        // Handle errors if the request fails.
       });
   };
 
@@ -71,29 +109,27 @@ const CreateClass = () => {
           />
         </div>
         <div>
-          <label>Subject </label>
-          <select
-            type='number' // Use type="number" for subject ID
-            name='subjectId'
-            onChange={handleStudentChange}
-          >
-            <option value={1}>Volvo</option>
-            <option value={2}>Saab</option>
-            <option value={3}>Mercedes</option>
-            <option value={4}>Audi</option>
+          <label>Subject:</label>
+          <select type='number' name='subjectId' onChange={handleInputChange}>
+            {subjects.map((subject) => (
+              <option key={subject.id} value={subject.id}>
+                {subject.name}
+              </option>
+            ))}
           </select>
         </div>
         <div>
-          <label>Teacher </label>
+          <label>Teacher:</label>
           <select
             name='teacherId'
             value={classInfo.teacherId}
             onChange={handleTeacherChange}
           >
-            <option value={1}>Volvo</option>
-            <option value={2}>Saab</option>
-            <option value={3}>Mercedes</option>
-            <option value={4}>Audi</option>
+            {teachers.map((teacher) => (
+              <option key={teacher.id} value={teacher.id}>
+                {teacher.Fullname}
+              </option>
+            ))}
           </select>
         </div>
         <div>
@@ -117,10 +153,11 @@ const CreateClass = () => {
         <div>
           <label>Students:</label>
           <select name='students' multiple onChange={handleStudentChange}>
-            <option value={1}>Volvo</option>
-            <option value={2}>Saab</option>
-            <option value={3}>Mercedes</option>
-            <option value={4}>Audi</option>
+            {students.map((student) => (
+              <option key={student.id} value={student.id}>
+                {student.Fullname}
+              </option>
+            ))}
           </select>
         </div>
         <button type='button' onClick={submitForm}>

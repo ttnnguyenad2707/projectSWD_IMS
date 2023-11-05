@@ -1,5 +1,5 @@
 import React, { useEffect, useState, } from 'react';
-import {useNavigate} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import {  Table } from 'antd';
 import { Button, Container } from 'react-bootstrap'
 import { getSettingList } from '../../services/setting.service';
@@ -40,6 +40,7 @@ const SystemSettingList = () => {
       }
     return (
         <Container>
+            <div className='d-flex justify-content-end'><Link to='/systemsetting/add' className='btn btn-primary'>Add new setting</Link></div>
             <Table dataSource={dataSource} columns={columns} />
         </Container>
     );

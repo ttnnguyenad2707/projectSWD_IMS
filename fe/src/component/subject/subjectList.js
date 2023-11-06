@@ -39,8 +39,9 @@ const SubjectList = () => {
             const data = (await activeSubject(id))
             console.log(data);
             setdatareset(data)
+            toast.success('cập nhật trạng thái thành công')
         } catch (error) {
-
+            toast.warning('Xảy ra lỗi khi cập nhật trạng thái')
         }
     }
     const deactivesubject = async (id) => {
@@ -48,8 +49,9 @@ const SubjectList = () => {
             const data = (await deactiveSubject(id))
             console.log(data);
             setdatareset(data)
+            toast.success('cập nhật trạng thái thành công')
         } catch (error) {
-
+            toast.warning('Xảy ra lỗi khi cập nhật trạng thái')
         }
     }
     const addSubject = async (name, description) => {

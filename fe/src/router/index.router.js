@@ -60,7 +60,14 @@ const appRouter = createBrowserRouter([
         path: "/issues/create",
         element: <CreateIssue />,
       },
-
+      {
+        path: "/class/create",
+        element: <CreateClass />,
+      },
+      {
+        path: "/classlist",
+        element: <ClassList />,
+      },
       {
         path: "/issues/:id",
         element: <IssueDetail />,
@@ -71,7 +78,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/admin/subject",
-        element: <SubjectList/>,
+        element: <SubjectList />,
       },
     ],
   },

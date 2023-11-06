@@ -7,7 +7,7 @@ const accountRouter = express.Router();
 accountRouter.post('/register',validateData(accountValidator.validateRegister),accountController.register);
 accountRouter.post('/login',accountController.login);
 accountRouter.post('/logout',accountController.logout);
-accountRouter.post('/role',accountController.role);
+// accountRouter.post('/role',accountController.role);
 accountRouter.get('/filter',accountController.getAccountByRole)
 
 export default accountRouter

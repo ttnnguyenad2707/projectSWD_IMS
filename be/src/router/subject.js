@@ -7,6 +7,8 @@ subjectRouter.get('/', subjectController.getSubjectList);
 subjectRouter.get('/:id', subjectController.getSubjectbyID);
 subjectRouter.post('/newsubject', subjectController.createSubject);
 subjectRouter.post('/updatesubject', subjectController.updateSubjectList);
-subjectRouter.delete('/delete', subjectController.deleteSubjectList);
+subjectRouter.post('/delete', subjectController.deleteSubjectList);
 subjectRouter.post('/assai', subjectController.assaiSubject);
+subjectRouter.post('/activeStatus/:id', subjectController.activeStatus);
+subjectRouter.post('/deactiveStatus/:id', subjectController.deactiveStatus);
 export default subjectRouter

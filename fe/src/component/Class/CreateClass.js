@@ -3,16 +3,16 @@ import axios from "axios";
 import "../../class.css";
 
 const CreateClass = () => {
-  const studentsUrl = "http://localhost:5000/account/role/1";
-  const teacherUrl = "http://localhost:5000/account/role/3";
+  const studentsUrl = "http://localhost:5000/account/filter?roleId=1";
+  const teacherUrl = "http://localhost:5000/account/filter?roleId=3";
   const subjectUrl = "http://localhost:5000/subject";
 
   const [classInfo, setClassInfo] = useState({
-    className: "",
+    class_name: "",
     code: "",
-    subjectId: 0,
-    teacherId: 0,
-    status: "",
+    subject_id: 1,
+    teacher_id: 0,
+    status: 0,
     semester: "",
     students: [],
   });
@@ -60,8 +60,8 @@ const CreateClass = () => {
   };
 
   const handleTeacherChange = (e) => {
-    const teacherId = parseInt(e.target.value, 10);
-    setClassInfo({ ...classInfo, teacherId });
+    const teacher_id = parseInt(e.target.value, 10);
+    setClassInfo({ ...classInfo, teacher_id });
   };
 
   const handleStudentChange = (e) => {
@@ -94,8 +94,8 @@ const CreateClass = () => {
           <label>Class Name:</label>
           <input
             type='text'
-            name='className'
-            value={classInfo.className}
+            name='class_name'
+            value={classInfo.class_name}
             onChange={handleInputChange}
           />
         </div>
@@ -122,7 +122,7 @@ const CreateClass = () => {
           <label>Teacher:</label>
           <select
             name='teacherId'
-            value={classInfo.teacherId}
+            value={classInfo.teacher_id}
             onChange={handleTeacherChange}
           >
             {teachers.map((teacher) => (
@@ -135,7 +135,7 @@ const CreateClass = () => {
         <div>
           <label>Status:</label>
           <input
-            type='text'
+            type='number'
             name='status'
             value={classInfo.status}
             onChange={handleInputChange}

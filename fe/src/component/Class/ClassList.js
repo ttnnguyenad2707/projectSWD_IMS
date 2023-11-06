@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ButtonGroup, Button } from "react-bootstrap";
-//import Header from "../Header";
+
 const ClassList = () => {
   const [classList, setClassList] = useState([]);
+  const [teacherNames, setTeacherNames] = useState({});
+  const [studentNames, setStudentNames] = useState({}); // Store student names
   const apiUrl = "http://localhost:5000/class/list";
+  const accUrl = "http://localhost:5000/account/filter?id=";
 
   useEffect(() => {
     const fetchClassList = async () => {
@@ -24,14 +27,60 @@ const ClassList = () => {
     fetchClassList();
   }, []);
 
+  const fetchTeacherNames = async (teacher_id) => {
+    try {
+      const response = await axios.get(accUrl + teacher_id);
+      return response.data[0].Fullname;
+    } catch (error) {
+      console.error("Error fetching teacher name:", error);
+    }
+  };
+
+  // Function to fetch student names
+  const fetchStudentNames = async (studentId) => {
+    try {
+      const response = await axios.get(accUrl + studentId);
+      return response.data[0].Fullname;
+    } catch (error) {
+      console.error("Error fetching student name:", error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchTeacherData = async () => {
+      const names = {};
+      for (const classInfo of classList) {
+        if (!teacherNames[classInfo.teacher_id]) {
+          const teacherName = await fetchTeacherNames(classInfo.teacher_id);
+          names[classInfo.teacher_id] = teacherName;
+        }
+      }
+      setTeacherNames(names);
+    };
+
+    fetchTeacherData();
+  }, [classList]);
+
+  // Fetch and store student names
+  useEffect(() => {
+    const fetchStudentData = async () => {
+      const names = {};
+      for (const classInfo of classList) {
+        for (const studentId of classInfo.student_ids) {
+          if (!studentNames[studentId]) {
+            const studentName = await fetchStudentNames(studentId);
+            names[studentId] = studentName;
+          }
+        }
+      }
+      setStudentNames(names);
+    };
+
+    fetchStudentData();
+  }, [classList]);
+
   return (
-    <div
-      style={{
-        fontFamily: "Arial, sans-serif",
-        margin: "20px",
-      }}
-    >
-      {/* <Header /> */}
+    <div style={{ fontFamily: "Arial, sans-serif", margin: "20px" }}>
       <h1>Class List</h1>
 
       <ButtonGroup aria-label='Basic example'>
@@ -108,6 +157,16 @@ const ClassList = () => {
             >
               Semester
             </th>
+            <th
+              style={{
+                backgroundColor: "#f2f2f2",
+                textAlign: "left",
+                padding: "12px",
+                border: "1px solid #ddd",
+              }}
+            >
+              List Students
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -115,63 +174,80 @@ const ClassList = () => {
             <tr key={classInfo.id}>
               <td
                 style={{
+                  backgroundColor: "#f2f2f2",
+                  textAlign: "left",
                   padding: "12px",
                   border: "1px solid #ddd",
                 }}
               >
-                <p type='text' name='className'>
-                  {classInfo.class_name}
-                </p>
+                {classInfo.class_name}
               </td>
               <td
                 style={{
+                  backgroundColor: "#f2f2f2",
+                  textAlign: "left",
                   padding: "12px",
                   border: "1px solid #ddd",
                 }}
               >
-                <p type='text' name='code'>
-                  {classInfo.code}
-                </p>
+                {" "}
+                {classInfo.code}
               </td>
               <td
                 style={{
+                  backgroundColor: "#f2f2f2",
+                  textAlign: "left",
                   padding: "12px",
                   border: "1px solid #ddd",
                 }}
               >
-                <p type='text' name='subject'>
-                  {classInfo.subject_id}
-                </p>
+                {classInfo.subject_id}
               </td>
               <td
                 style={{
+                  backgroundColor: "#f2f2f2",
+                  textAlign: "left",
                   padding: "12px",
                   border: "1px solid #ddd",
                 }}
               >
-                <p type='text' name='teacher'>
-                  {classInfo.teacher_id}
-                </p>
+                {teacherNames[classInfo.teacher_id]}
               </td>
               <td
                 style={{
+                  backgroundColor: "#f2f2f2",
+                  textAlign: "left",
                   padding: "12px",
                   border: "1px solid #ddd",
                 }}
               >
-                <p type='text' name='status'>
-                  {classInfo.status_class}
-                </p>
+                {classInfo.status_class}
               </td>
               <td
                 style={{
+                  backgroundColor: "#f2f2f2",
+                  textAlign: "left",
                   padding: "12px",
                   border: "1px solid #ddd",
                 }}
               >
-                <p type='text' name='semester'>
-                  {classInfo.semester}
-                </p>
+                {classInfo.semester}
+              </td>
+              <td
+                style={{
+                  backgroundColor: "#f2f2f2",
+                  textAlign: "left",
+                  padding: "12px",
+                  border: "1px solid #ddd",
+                }}
+              >
+                <ul>
+                  {classInfo.student_ids.map((studentId) => (
+                    <li key={studentId}>
+                      {studentNames[studentId] || "Loading..."}
+                    </li>
+                  ))}
+                </ul>
               </td>
             </tr>
           ))}

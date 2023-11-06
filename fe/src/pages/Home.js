@@ -19,6 +19,7 @@ const Home = () => {
                         <div className='gap-3 d-flex flex-column'>
                             {user?.Role === "teacher" ? <button className='btn btn-primary' onClick={() => { nav("/projectList") }}>Project</button> : ""}
                             {user?.Role === "admin" ? <Link className='btn btn-primary' to='/systemsetting'> Setting </Link> : ""}
+                            {user?.Role === "admin" ? <Link className='btn btn-primary' to='/admin/subject'> Subject </Link> : ""}
                             {user?.Role === "student" ? <Link className='btn btn-primary' to='/issues'> Issue </Link> : ""}
                             {user?.Role === "teacher" ? <Link className='btn btn-primary' to='/classlist'> Class </Link> : ""}
                         </div>

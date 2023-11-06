@@ -36,8 +36,7 @@ const CreateClass = () => {
     axios
       .get(subjectUrl)
       .then((response) => {
-        //   setSubjects(response.data);
-        setSubjects([]);
+        setSubjects(response.data.data);
       })
       .catch((error) => {
         console.error("Error fetching subjects:", error);

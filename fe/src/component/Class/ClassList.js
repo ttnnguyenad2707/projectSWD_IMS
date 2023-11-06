@@ -147,7 +147,7 @@ const ClassList = () => {
             >
               Status
             </th>
-            <th
+            {/* <th
               style={{
                 backgroundColor: "#f2f2f2",
                 textAlign: "left",
@@ -156,7 +156,7 @@ const ClassList = () => {
               }}
             >
               Semester
-            </th>
+            </th> */}
             <th
               style={{
                 backgroundColor: "#f2f2f2",
@@ -193,7 +193,7 @@ const ClassList = () => {
                 {" "}
                 {classInfo.code}
               </td>
-              <td
+              {/* <td
                 style={{
                   backgroundColor: "#f2f2f2",
                   textAlign: "left",
@@ -202,7 +202,7 @@ const ClassList = () => {
                 }}
               >
                 {classInfo.subject_id}
-              </td>
+              </td> */}
               <td
                 style={{
                   backgroundColor: "#f2f2f2",

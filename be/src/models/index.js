@@ -9,6 +9,7 @@ import SubjectClass from "./Subjectclass.js";
 import Issue from "./Issue.js";
 import Setting from "./Setting.js";
 import typeSetting from "./TypeSetting.js";
+import Milestone from "./Milestones.js";
 // 1 - nhiều account - role
 Role.hasMany(Account, { as: "account", foreignKey: "roleId", sourceKey: "id" });
 Account.belongsTo(Role, { as: "role", foreignKey: "roleId", targetKey: "id" });
@@ -61,4 +62,11 @@ Issue.belongsTo(Project, {
 });
 
 Setting.belongsTo(typeSetting, { as: "settingType", foreignKey: "type" });
+
+Milestone.belongsTo(Project,{as:'milestone-project',foreignKey:"projectId"})
+Project.hasMany(Milestone, {as:'project-milestone', foreignKey: 'projectId' });
+
+Milestone.belongsTo(Account, { foreignKey: 'user_create_id', as: 'CreatedBy' });
+Milestone.belongsTo(Account, { foreignKey: 'assigned_create_id', as: 'AssignedTo' });
+
 export { Account, Role, Class, Project, Issue, ClassAccount };
